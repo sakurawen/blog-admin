@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "lang": "简体中文",
+    "edit": "编辑",
+    "article": "文章",
+    "setting": "设置"
+  },
+  "tips": {
+    "save": "保存成功"
+  },
+  "placeholder": {
+    "article": "正文，支持 Markdown 语法",
+    "acticleTitle": "标题"
+  },
+  "welcome": {
+    "desc": "omazio是一款markdown笔记应用，为您提供了作为读者和作家的无缝体验，markdown源代码的语法符号以及所有其他不必要的干扰，以帮助您专注于内容本身。",
+    "start": "开 始",
+    "login":"登 录",
+    "register": "注 册"
+  },
+  "result":{
+    "goBack":"返 回"
+  },
+  "editor": {
+    "save":"保 存",
+    "post": "发 布",
+    "preview": "预览",
+    "insertImage": "插入图片",
+    "previewTips": "请输入内容后预览",
+    "edit": "编辑",
+    "autoSave": "自动保存",
+    "mode":"编辑模式"
+  },
+  "hello": "写点什么...",
+  "login": {
+    "account": "账号",
+    "pwd": "密码",
+    "loginBtn": "登 录",
+    "mAccount": "请输入账号",
+    "mPwd": "请输入密码"
+  },
+  "articles": {
+    "title": "文章列表",
+    "edit": "编辑",
+    "del":"删除"
+  }
+}

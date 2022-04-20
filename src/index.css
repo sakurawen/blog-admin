@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.anticon svg {
+		vertical-align: baseline !important;
+	}
+	html,
+	body {
+		@apply  bg-light dark:!bg-dark;
+	}
+	*::selection {
+		@apply bg-theme-light/20 text-theme-light-deep dark:bg-theme-dark-light/20 dark:text-blue-400;
+	}
+  article {
+    @apply space-y-4 text-gray-700 dark:text-gray-300; 
+  }
+	#root {
+		@apply min-h-screen bg-light dark:bg-dark-deep transition-colors;
+	}
+
+	.label-custom {
+		@apply mt-2 mb-1 inline-block;
+	}
+	.main {
+		width: calc(100vw - 14rem);
+	}
+}
+
+
+
+
+* {
+	scroll-behavior: smooth;
+}
+
+
+
+
+.bg-login {
+	background-position: 50% 50%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	backdrop-filter: blur(8px);
+}
+.bg-login-light {
+	background-image: url(https://cdn.jsdelivr.net/gh/sakurawen/jsDeliver/light.jpg);
+}
+
+.bg-login-dark {
+	background-image: url(https://cdn.jsdelivr.net/gh/sakurawen/jsDeliver/dark.jpg);
+}
+
+@layer utilities {
+	.h-content {
+		content: attr(placeholder);
+	}
+	.h-edit-mobile-editor {
+		height: calc(100vh - 10.5rem);
+	}
+	.h-edit-pc-editor {
+		height: calc(100vh - 5.5rem);
+	}
+	.h-mobile-editor {
+		height: calc(100vh - 6.5rem);
+	}
+	.h-pc-editor {
+		height: calc(100vh - 1.5rem);
+	}
+	.h-edit-editor {
+		@apply h-edit-mobile-editor sm:h-edit-pc-editor;
+	}
+	.h-editor {
+		@apply h-mobile-editor sm:h-pc-editor;
+	}
+	.bg-blur {
+		@apply bg-opacity-100;
+	}
+
+	@supports (backdrop-filter: blur(20px)) {
+		.bg-blur {
+			@apply backdrop-blur !bg-opacity-80 dark:!bg-opacity-75;
+		}
+	}
+}
+
+
+code[class*='language-'],
+pre[class*='language-'] {
+	word-spacing: normal;
+	word-wrap: normal;
+	tab-size: 2;
+	hyphens: none;
+	font-size: 0.9em;
+	@apply shadow-lg dark:!shadow-none rounded-md sm:rounded-lg text-[#e4f0fb] text-left break-normal leading-normal selection:bg-black selection:text-white;
+}
+
+/* Code blocks */
+pre[class*='language-'] {
+	@apply overflow-x-auto my-4 p-4 sm:p-8 whitespace-pre;
+}
+
+:not(pre) > code[class*='language-'],
+pre[class*='language-'] {
+	@apply bg-[#252b37];
+}
+
+.dark :not(pre) > code[class*='language-'],
+.dark pre[class*='language-'] {
+	@apply bg-zinc-800;
+}
+
+/* Inline code */
+:not(pre) > code[class*='language-'] {
+	@apply p-3 shadow-lg rounded-md whitespace-normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	@apply text-[#a6accd];
+}
+
+.token.punctuation {
+	@apply text-[#e4f0fb];
+}
+
+.token.namespace {
+	@apply opacity-70;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	@apply text-[#e4f0fb];
+}
+
+.token.boolean,
+.token.number {
+	@apply text-[#5de4c7];
+}
+
+.token.selector,
+.token.attr-value,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	@apply text-[#5de4c7];
+}
+
+.token.attr-name,
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	@apply text-[#add7ff];
+}
+
+.token.atrule,
+.token.function,
+.token.class-name {
+	@apply text-[#5de4c7];
+}
+
+.token.keyword {
+	@apply text-[#add7ff];
+}
+
+.token.regex,
+.token.important {
+	@apply text-[#fffac2];
+}
+
+.token.important,
+.token.bold {
+	font-weight: 700;
+}
+
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	@apply cursor-help;
+}

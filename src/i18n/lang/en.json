@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "lang": "English",
+    "edit": "Edit",
+    "article": "Posts",
+    "setting": "Setting"
+  },
+  "tips": {
+    "save": "saved successfully"
+  },
+  "placeholder": {
+    "article": "Enter the text,support markdown syntax",
+    "acticleTitle": "Title"
+  },
+  "welcome": {
+    "desc": "Omazio is a markdown note-taking application that provides you with a seamless experience as a reader and a writer, the grammatical symbols of the markdown source code and all other unnecessary interference to help you focus on the content itself.",
+    "start": "Start",
+    "login": "Sign in",
+    "register": "Sign up"
+  },
+  "result": {
+    "goBack": "Go back"
+  },
+  "editor": {
+    "save": "Save",
+    "post": "Post",
+    "preview": "Preview",
+    "insertImage": "Add Image",
+    "previewTips": "Please enter the content and preview",
+    "edit": "Edit",
+    "autoSave": "auto save",
+    "mode": "Edit Mode"
+  },
+  "hello": "Write more...",
+  "login": {
+    "account": "account",
+    "pwd": "password",
+    "loginBtn": "Login",
+    "mAccount": "Please enter the account",
+    "mPwd": "Please input a password"
+  },
+  "articles": {
+    "title": "Posts",
+    "edit": "Edit",
+    "del": "Del"
+  }
+}

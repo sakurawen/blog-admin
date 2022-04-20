@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "lang": "日本語",
+    "edit": "編集",
+    "article": "文章",
+    "setting": "設定"
+  },
+  "tips": {
+    "save": "保存に成功しました"
+  },
+  "placeholder": {
+    "article": "本文、Markdown構文をサポートする",
+    "acticleTitle": "記事タイトル"
+  },
+  "welcome": {
+    "desc": "omazioはmarkdownノートアプリケーションで、読者と作家としてのシームレスな体験、markdownソースコードの文法記号、その他の不要な干渉を提供し、コンテンツ自体に集中するのに役立ちます。",
+    "start": "スタート",
+    "login":"ログイン",
+    "register": "サインアップ"
+  },
+  "result":{
+    "goBack":"前のページに戻る"
+  },
+  "editor": {
+    "save":"保存＃ホゾン＃",
+    "post": "パブリッシュ",
+    "preview": "プレビュー",
+    "insertImage": "画像を挿入",
+    "previewTips": "内容を入力してプレビューしてください",
+    "edit": "編集",
+    "autoSave": "自動保存",
+    "mode":"編集モード"
+  },
+  "hello": "何か書いて...",
+  "login": {
+    "account": "アカウント",
+    "pwd": "パスワード",
+    "loginBtn": "ログイン",
+    "mAccount": "アカウントを入力してください",
+    "mPwd": "パスワードを入力してください"
+  },
+  "articles": {
+    "title": "ポスト",
+    "edit": "編集",
+    "del":"删除"
+  }
+}
