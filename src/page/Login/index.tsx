@@ -97,7 +97,7 @@ const Login: React.FC = () => {
 					<div className='w-96 bg-light p-6 shadow dark:bg-dark mx-auto rounded-md'>
 						<h1 className='uppercase text-2xl mb-4 '>
 							<span className='bg-gradient-to-br font-bold from-theme-light to-theme-light-fading/40 dark:to-theme-dark-light/40 dark:from-theme-dark text-transparent bg-clip-text'>
-								Start
+								ADMIN
 							</span>
 						</h1>
 						<div className='my-2'>

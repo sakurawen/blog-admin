@@ -1,4 +1,4 @@
-import { request } from '@/utils'
+import { request } from '@/utils/'
 import { ServiceResponse } from '@/@types'
 
 /**
@@ -10,14 +10,14 @@ export const Login = (loginForm: {
   account: string,
   pwd: string
 }) => {
-  return request.post<any, ServiceResponse>("/login", loginForm)
+  return request.post<any, ServiceResponse>("/user/login", loginForm)
 }
 
 /**
  * 验证jwt、自动登录
  */
 export const validateJWT = () => {
-  return request.post<any, ServiceResponse>("/verifyJWT")
+  return request.post<any, ServiceResponse>("/user/verify")
 }
 
 /**

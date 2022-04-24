@@ -10,6 +10,7 @@ import Login from '@/page/Login';
 import Nodes from '@/page/main/Nodes';
 import NotFound from '@/page/Result';
 import Configuration from '@/page/main/Confguration';
+import Exam from '@/page/main/Exam';
 
 const routes: RouteObject[] = [
 	{
@@ -73,6 +74,11 @@ const routes: RouteObject[] = [
 				path: 'post/:key',
 				element: <Posts />,
 			},
+      {
+				path: 'exam',
+				element: <Exam />,
+			},
+	
 		],
 	},
 

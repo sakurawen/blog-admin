@@ -8,14 +8,14 @@
 	}
 	html,
 	body {
-		@apply  bg-light dark:!bg-dark;
+		@apply bg-light dark:!bg-dark;
 	}
 	*::selection {
 		@apply bg-theme-light/20 text-theme-light-deep dark:bg-theme-dark-light/20 dark:text-blue-400;
 	}
-  article {
-    @apply space-y-4 text-gray-700 dark:text-gray-300; 
-  }
+	article {
+		@apply space-y-4 text-gray-700 dark:text-gray-300;
+	}
 	#root {
 		@apply min-h-screen bg-light dark:bg-dark-deep transition-colors;
 	}
@@ -28,15 +28,9 @@
 	}
 }
 
-
-
-
 * {
 	scroll-behavior: smooth;
 }
-
-
-
 
 .bg-login {
 	background-position: 50% 50%;
@@ -45,7 +39,9 @@
 	backdrop-filter: blur(8px);
 }
 .bg-login-light {
-	background-image: url(https://cdn.jsdelivr.net/gh/sakurawen/jsDeliver/light.jpg);
+	background-size: 640px;
+  background-repeat: repeat;
+	background-image: url(./assets/images/illustrations/bg.png);
 }
 
 .bg-login-dark {
@@ -84,7 +80,6 @@
 		}
 	}
 }
-
 
 code[class*='language-'],
 pre[class*='language-'] {

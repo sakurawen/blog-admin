@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 type RowProps = {
 	className?: string;
-	onClick?: () => void;
+	onClick?: React.MouseEventHandler<HTMLDivElement>;
 	ariaLabel?: string;
   children:ReactNode
 };
@@ -19,7 +19,7 @@ const Row: React.FC<RowProps> = (props) => {
 			aria-label={ariaLabel}
 			onClick={onClick}
 			className={cx(
-				'px-4 ring-2 ring-transparent  py-2.5 hover:bg-light-fading dark:hover:bg-dark rounded cursor-pointer',
+				'px-4 ring-2 ring-transparent  py-2.5 hover:bg-light-fading/80 dark:hover:bg-dark rounded cursor-pointer',
 				className
 			)}
 		>

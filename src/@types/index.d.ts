@@ -58,9 +58,7 @@ export type User = {
 	id: number;
 	username: string;
 	account: string;
-	create_time: Date;
 	role: number;
-	group_id: number;
 };
 
 export type ArticleSaveResp = {

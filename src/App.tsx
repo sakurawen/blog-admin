@@ -6,9 +6,6 @@ import { userActions } from '@/store/reducer/userSlice';
 import { useDispatch } from 'react-redux';
 import { Spinner } from '@chakra-ui/react';
 import { useColorMode } from '@chakra-ui/react';
-import LightIcon from '@/assets/images/icon/favicon_light.png';
-import DarkIcon from '@/assets/images/icon/favicon_dark.png';
-
 /**
  * App 入口
  * @returns
@@ -20,8 +17,6 @@ function App() {
 	// 主题初始化
 	const { colorMode } = useColorMode();
 	useEffect(() => {
-		const iconLink = document.querySelector("link[rel*='icon']");
-		iconLink?.setAttribute('href', colorMode === 'dark' ? DarkIcon : LightIcon);
 		if (colorMode === 'dark') {
 			document.documentElement.classList.add('dark');
 			return;

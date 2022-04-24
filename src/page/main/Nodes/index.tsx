@@ -14,6 +14,7 @@ import Pagination from '@/components/Pagination';
 import Search from '@/components/Search';
 import Empty from '@/components/Empty';
 import { produce } from 'immer';
+import { useAppSelector } from '@/store';
 
 /**
  * 节点页面
@@ -21,6 +22,7 @@ import { produce } from 'immer';
  */
 const Nodes: React.FC = () => {
 	const navigate = useNavigate();
+  const account = useAppSelector(state=>state.user.info?.account)||""
 	const toast = useToast();
 	const [openSaveNodeModal, setOpenSaveNodeModal] = useState(false);
 	const [openUpdateNodeModal, setOpenUpdateNodeModal] = useState(false);
@@ -46,13 +48,13 @@ const Nodes: React.FC = () => {
 	});
 
 	useEffect(() => {
-		nodeService.page(pageable).then((res) => {
+		nodeService.page(account,pageable).then((res) => {
 			setNodePage(res.data);
 		});
 	}, [pageable]);
 
 	const getNodePage = () => {
-		nodeService.page(pageable).then((res) => {
+		nodeService.page(account,pageable).then((res) => {
 			setNodePage(res.data);
 		});
 	};

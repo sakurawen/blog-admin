@@ -1,11 +1,12 @@
 import { Node, Path, Range, Text } from 'slate';
 import Prism from 'prismjs';
-
+{/* <NeteaseMusic aid="381962" type="2"/> */}
 Prism.languages.markdown = Prism.languages.extend('markup', {});
-
 Prism.languages.insertBefore('markdown', 'prolog', {
 	blockquote: { pattern: /^>(?:[\t ]*>)*/m, alias: 'punctuation' },
 	code: [{ pattern: /`.+?`/, alias: 'keyword' }],
+	bilibili: [{ pattern: /<Bilibili\s+bv=".+"\s*\/>/, alias: 'keyword' }],
+	netease: [{ pattern: /<NeteaseMusic\s+aid=".+"\s*type="[0-9]"\s*\/>/, alias: 'keyword' }],
 	title: [
 		{
 			pattern: /(^\s*)#{1,6}.+/m,

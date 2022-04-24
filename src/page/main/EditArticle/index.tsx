@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import MarkdownEditor from '@/components/MarkdownEditor';
 import { useParams } from 'react-router-dom';
-import { articleService, nodeService } from '@/api';
+import {  nodeService, postsService } from '@/api';
 import { Article } from '@/@types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useToast } from '@chakra-ui/react';
@@ -24,7 +24,7 @@ const EditArticle: React.FC = () => {
 	const [editArticle, setEditArticle] = useState<Article>();
 	const [init, setInit] = useState(false);
 	useEffect(() => {
-		articleService
+		postsService
 			.get(key || '')
 			.then((res) => {
 				setEditArticle(res.data);
@@ -94,7 +94,7 @@ const EditArticle: React.FC = () => {
 	const handlePost = () => {
 		if (loading) return;
 		setLoading(true);
-		articleService
+		postsService
 			.update({
 				title: articleForm.title,
 				content: articleForm.content,

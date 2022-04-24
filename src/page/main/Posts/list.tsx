@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Article, Node, Pageable } from '@/@types';
-import { articleService, nodeService } from '@/api';
+import { postsService as articleService, nodeService } from '@/api';
+
 import { useNavigate } from 'react-router-dom';
 import { Spinner, useToast } from '@chakra-ui/react';
 import { TrashIcon } from '@heroicons/react/outline';
@@ -14,6 +15,7 @@ import Pagination from '@/components/Pagination';
 import Search from '@/components/Search';
 import Empty from '@/components/Empty';
 import axios from 'axios';
+import { useAppSelector } from '@/store';
 type PostsListProsp = {
 	searchNodeKey?: boolean;
 };
@@ -22,6 +24,7 @@ type PostsListProsp = {
  * @returns
  */
 const PostsList: React.FC<PostsListProsp> = (props) => {
+	const account = useAppSelector((state) => state.user.info?.account) || '';
 	const navigate = useNavigate();
 	const cancel = useRef(axios.CancelToken.source());
 	const { searchNodeKey } = props;
@@ -70,7 +73,7 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 	useEffect(() => {
 		cancelRequest();
 		articleService
-			.page(pageable, cancel.current.token)
+			.page(account, pageable, cancel.current.token)
 			.then((res) => {
 				setArticlePage(res.data);
 			})
@@ -79,7 +82,7 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 
 	const getArticlePage = () => {
 		cancelRequest();
-		articleService.page(pageable, cancel.current.token).then((res) => {
+		articleService.page(account, pageable, cancel.current.token).then((res) => {
 			setArticlePage(res.data);
 		});
 	};
@@ -88,12 +91,12 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 		cancel.current = axios.CancelToken.source();
 	};
 
-	const handleNavToArticle = (key: string) => {
+	const handleNavToArticle = (e: React.MouseEvent, key: string) => {
+		e.stopPropagation();
 		navigate(`../post/${key}`);
 	};
 
-	const handleEditArticle = (e: React.MouseEvent, key: string) => {
-		e.stopPropagation();
+	const handleEditArticle = (key: string) => {
 		navigate(`../edit/${key}`);
 	};
 
@@ -117,15 +120,16 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 					status: 'success',
 					title: '删除成功',
 				});
-				if (articlePage.count <= 1) {
+				if (articlePage.count <= 1 && pageable.page.number !== 1) {
 					setPageable(
 						produce(pageable, (d) => {
 							d.page.number--;
 						})
 					);
 					return;
+				} else {
+					getArticlePage();
 				}
-				getArticlePage();
 			})
 			.catch((err) => {
 				console.error('删除文章失败: ', err);
@@ -156,7 +160,9 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 	};
 	const nextPage = () => {
 		if (!articlePage) return;
-		if (pageable.page.number >= Math.ceil(articlePage.total / pageable.page.size)) {
+		if (
+			pageable.page.number >= Math.ceil(articlePage.total / pageable.page.size)
+		) {
 			return;
 		}
 		setPageable(
@@ -205,7 +211,10 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 				>
 					<h1 className='mb-6 text-2xl  font-bold text-auto-color'>
 						Posts
-						<span className='text-sm font-normal'> / {searchNodeKey ? node?.name : 'all'}</span>
+						<span className='text-sm font-normal'>
+							{' '}
+							/ {searchNodeKey ? node?.name : 'all'}
+						</span>
 					</h1>
 					<Search value={searchVal} onChange={handleSearchValChange} />
 					<div>
@@ -213,21 +222,23 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 							articlePage.rows?.map((item) => {
 								return (
 									<Row
-										onClick={() => handleNavToArticle(item.article_key)}
+										onClick={() => {
+											handleEditArticle(item.article_key);
+										}}
 										key={item.id}
 										className='flex group items-center justify-between'
 									>
 										<p className='text-sm flex-1 overflow-ellipsis overflow-hidden  text-auto-color'>
-											<span className='whitespace-nowrap pointer-events-none'>{item.title}</span>
+											<span className='whitespace-nowrap pointer-events-none'>
+												{item.title}
+											</span>
 										</p>
 										<div className='space-x-1'>
 											<button
-												onClick={(e) => {
-													handleEditArticle(e, item.article_key);
-												}}
-												className='py-0.5 px-2 transition-colors text-sm rounded text-gray-300 dark:text-dark-fading group-hover:text-gray-600 dark:group-hover:text-slate-200  hover:!text-theme-light dark:hover:!text-theme-dark'
+												onClick={(e) => handleNavToArticle(e, item.article_key)}
+												className='py-0.5 px-2  transition-colors text-sm rounded text-gray-300 dark:text-dark-fading group-hover:text-gray-600 dark:group-hover:text-slate-200  hover:!text-theme-light dark:hover:!text-theme-dark'
 											>
-												编辑
+												查看
 											</button>
 											<button
 												onClick={(e) => {
@@ -263,10 +274,18 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 						</ModalBody>
 						<ModalFooter>
 							<div className='flex gap-2 items-center'>
-								<Button variants='second' disabled={delLoading} onClick={handleCloseDelModal}>
+								<Button
+									variants='second'
+									disabled={delLoading}
+									onClick={handleCloseDelModal}
+								>
 									取 消
 								</Button>
-								<Button loading={delLoading} onClick={handleConfirmDel} variants='primary'>
+								<Button
+									loading={delLoading}
+									onClick={handleConfirmDel}
+									variants='primary'
+								>
 									确 定
 								</Button>
 							</div>

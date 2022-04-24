@@ -7,7 +7,6 @@ interface CodeProps {
 }
 const Code = (props: unknown) => {
 	const className: string = (props as CodeProps).className;
-	console.log('classname:', className);
 	if (!className) {
 		return (
 			<code

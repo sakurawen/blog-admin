@@ -96,6 +96,9 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 	 * 重置编辑器
 	 */
 	const resetEditor = () => {
+    console.log("resetEditor")
+    localStorage.setItem("cache_content","")
+    localStorage.setItem("cache_title","")
 		const child = editor.children;
 		const lastPart = child.slice(child.length - 1, child.length)[0];
 		setEditData(
@@ -341,7 +344,7 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 		<div className={cx(['pb-1 flex flex-col ', className])} style={isEditMode ? style : {}}>
 			{/* title and tools  */}
 			<div className={cx('rounded mb-3 z-20 ')}>
-				<div className='flex items-center justify-between'>
+				<div className='flex items-center border-b border-gray-100 dark:border-dark-fading pb-6 justify-between'>
 					<div className={cx('flex-1 transition relative  border-gray-300 border-opacity-30 pr-2 mr-2')}>
 						<div
 							className={cx(
@@ -423,7 +426,7 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 							renderElement={_renderElement}
 							aria-label='editor'
 							className={cx(
-								'leading-relaxed break-words font-noto text-base text-dark  pb-32  h-full overflow-y-scroll   dark:text-gray-300'
+								'leading-relaxed break-words font-noto text-lg text-dark  pb-32 w-full h-full overflow-y-scroll dark:text-gray-300'
 							)}
 							spellCheck={false}
 							onKeyDown={handleEditKeydown}

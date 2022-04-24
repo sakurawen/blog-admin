@@ -1,5 +1,5 @@
 import { Node, Page, Pageable, ServiceResponse } from '@/@types';
-import { request } from '@/utils';
+import  {request}  from '@/utils/';
 
 /**
  * 保存节点
@@ -20,8 +20,8 @@ export const all = (account: string) => {
 };
 
 
-export const page = (pageable:Pageable)=>{
-  return request.post<any,ServiceResponse<Page<Node[]>>>("/node/page",pageable)
+export const page = (account:string,pageable:Pageable)=>{
+  return request.post<any,ServiceResponse<Page<Node[]>>>(`/node/page/${account}`,pageable)
 }
 
 /**

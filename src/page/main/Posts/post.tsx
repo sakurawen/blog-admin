@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { articleService } from '@/api';
+import { postsService } from '@/api';
 import useSWR from 'swr';
 import ArticleContent from '@/components/Article/index';
 import dayjs from 'dayjs';
@@ -8,10 +8,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { LoadingOutlined } from '@ant-design/icons';
 import Toolbar from '@/components/Toolbar';
 
-const Article:React.FC = () => {
+const Article: React.FC = () => {
 	const { key } = useParams();
-	const { data: articleData, error } = useSWR(['/article/get', key], (_, key) =>
-		articleService.get(key || '')
+	const { data: articleData, error } = useSWR(['/posts/get', key], (_, key) =>
+		postsService.get(key || '')
 	);
 	if (error) {
 		return <Navigate to='/' />;
