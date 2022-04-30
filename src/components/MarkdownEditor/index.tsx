@@ -327,7 +327,7 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 		} catch (err) {
 			toast({
 				position: 'top',
-				title: 'ur解析l错误',
+				title:(err as Error).message,
 				duration: 1500,
 			});
 			console.log(err);

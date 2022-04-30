@@ -156,13 +156,15 @@ export const nodeTextFormat = (editor: Editor, fmt: string) => {
 	}
 };
 
+const unSupportMediaError = new Error('不支持该媒体');
+
 /**
  * 解析媒体URL
  * @param url
  */
 export const getMediaComponentStr = (url: string) => {
 	const biliiliUrlRegexp = /https:\/\/www.bilibili.com\/video\/.+/;
-	const NeteaseMusicRegexp = /\./;
+	const NeteaseMusicRegexp = /https\:\/\/music.163.com\/#\/song\?id=.+/;
 	const isBilibiliUrl = biliiliUrlRegexp.test(url);
 	const isNeteaseMusicUrl = NeteaseMusicRegexp.test(url);
 	try {
@@ -176,8 +178,12 @@ export const getMediaComponentStr = (url: string) => {
 			const ret = getAidAndType(_url.hash);
 			return `<NeteaseMusic aid="${ret.aid}" type="${ret.type}"/>`;
 		}
+		throw unSupportMediaError;
 	} catch (e) {
-		throw new Error('解析失败');
+		if (e === unSupportMediaError) {
+			throw new Error((e as Error).message);
+		}
+		throw new Error('解析错误');
 	}
 };
 

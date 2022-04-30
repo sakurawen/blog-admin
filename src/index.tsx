@@ -21,23 +21,21 @@ const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);
 
 root.render(
-	<React.StrictMode>
-		<Router>
-			<SWRConfig
-				value={{
-					focusThrottleInterval: 1000 * 10,
-					errorRetryCount: 2,
-					dedupingInterval: 1000 * 2,
-				}}
-			>
-				<Provider store={store}>
-					<ChakraProvider theme={theme}>
-						<App />
-					</ChakraProvider>
-				</Provider>
-			</SWRConfig>
-		</Router>
-	</React.StrictMode>
+	<Router>
+		<SWRConfig
+			value={{
+				focusThrottleInterval: 1000 * 10,
+				errorRetryCount: 2,
+				dedupingInterval: 1000 * 2,
+			}}
+		>
+			<Provider store={store}>
+				<ChakraProvider theme={theme}>
+					<App />
+				</ChakraProvider>
+			</Provider>
+		</SWRConfig>
+	</Router>
 );
 
 reportWebVitals();
