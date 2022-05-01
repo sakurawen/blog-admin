@@ -164,7 +164,7 @@ const unSupportMediaError = new Error('不支持该媒体');
  */
 export const getMediaComponentStr = (url: string) => {
 	const biliiliUrlRegexp = /https:\/\/www.bilibili.com\/video\/.+/;
-	const NeteaseMusicRegexp = /https\:\/\/music.163.com\/#\/song\?id=.+/;
+	const NeteaseMusicRegexp = /https:\/\/music.163.com\/#\/song\?id=.+/;
 	const isBilibiliUrl = biliiliUrlRegexp.test(url);
 	const isNeteaseMusicUrl = NeteaseMusicRegexp.test(url);
 	try {

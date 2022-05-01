@@ -51,7 +51,7 @@ const Nodes: React.FC = () => {
 		nodeService.page(account, pageable).then((res) => {
 			setNodePage(res.data);
 		});
-	}, [pageable]);
+	}, [pageable,account]);
 
 	const getNodePage = () => {
 		nodeService.page(account, pageable).then((res) => {

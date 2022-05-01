@@ -78,7 +78,7 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 				setArticlePage(res.data);
 			})
 			.catch(() => {});
-	}, [pageable]);
+	}, [pageable,account]);
 
 	const getArticlePage = () => {
 		cancelRequest();
