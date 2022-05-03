@@ -9,7 +9,7 @@ const HTTP_STATUS = {
 const instance = axios.create({
 	baseURL: conf.test
 		? 'http://localhost:9527'
-		: 'https://www.omazio.com/api/v1',
+		: 'https://www.omazio.com/api',
 });
 
 instance.interceptors.request.use((config) => {
