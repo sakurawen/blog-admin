@@ -1,6 +1,6 @@
 import { Node, Path, Range, Text } from 'slate';
 import Prism from 'prismjs';
-{/* <NeteaseMusic aid="381962" type="2"/> */}
+
 Prism.languages.markdown = Prism.languages.extend('markup', {});
 Prism.languages.insertBefore('markdown', 'prolog', {
 	blockquote: { pattern: /^>(?:[\t ]*>)*/m, alias: 'punctuation' },

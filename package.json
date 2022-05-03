@@ -4,20 +4,14 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@chakra-ui/icons": "^1.1.1",
+    "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.8",
-    "@craco/craco": "^6.4.3",
     "@emotion/react": "11",
-    "@emotion/styled": "11",
+    "@emotion/styled": "^11.8.1",
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.5",
     "@mdx-js/react": "^1.6.22",
-    "@milkdown/core": "^5.5.0",
-    "@milkdown/plugin-listener": "^5.5.0",
-    "@milkdown/preset-commonmark": "^5.5.0",
-    "@milkdown/prose": "^5.5.0",
-    "@milkdown/react": "^5.5.0",
-    "@milkdown/theme-nord": "^5.5.0",
+    "@monado/scripts": "^0.0.36",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -28,16 +22,20 @@
     "@types/prismjs": "^1.16.6",
     "@types/react": "^18.0.6",
     "@types/react-dom": "^18.0.2",
+    "@types/react-redux": "^7.1.24",
     "ali-oss": "^6.16.0",
     "axios": "^0.24.0",
     "classnames": "^2.3.1",
-    "craco-less": "^1.20.0",
     "dayjs": "^1.10.7",
     "framer-motion": "^6.3.1",
     "highlight.js": "^11.3.1",
     "i18next": "^21.5.3",
     "immer": "^9.0.7",
+<<<<<<< HEAD
     "markdown-to-jsx": "^7.1.3",
+=======
+    "markdown-to-jsx": "^7.1.7",
+>>>>>>> be6ca130cb5b69202e0ff15f5eee43c63936df05
     "postcss": "^8.4.4",
     "prism-react-renderer": "^1.3.1",
     "prismjs": "^1.25.0",
@@ -46,20 +44,25 @@
     "react-i18next": "^11.14.3",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.0",
+<<<<<<< HEAD
     "react-scripts": "^5.0.1",
     "react-syntax-highlighter": "^15.4.5",
     "slate": "^0.77.2",
     "slate-history": "^0.66.0",
     "slate-react": "^0.77.3",
+=======
+    "react-scripts": "5.0.0",
+    "slate": "^0.77.2",
+    "slate-history": "^0.66.0",
+    "slate-react": "^0.77.4",
+>>>>>>> be6ca130cb5b69202e0ff15f5eee43c63936df05
     "swr": "^1.3.0",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject"
+    "start": "monado-scripts start",
+    "build": "monado-scripts build"
   },
   "eslintConfig": {
     "extends": [

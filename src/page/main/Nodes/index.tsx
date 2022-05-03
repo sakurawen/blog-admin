@@ -22,7 +22,7 @@ import { useAppSelector } from '@/store';
  */
 const Nodes: React.FC = () => {
 	const navigate = useNavigate();
-  const account = useAppSelector(state=>state.user.info?.account)||""
+	const account = useAppSelector((state) => state.user.info?.account) || '';
 	const toast = useToast();
 	const [openSaveNodeModal, setOpenSaveNodeModal] = useState(false);
 	const [openUpdateNodeModal, setOpenUpdateNodeModal] = useState(false);
@@ -48,13 +48,13 @@ const Nodes: React.FC = () => {
 	});
 
 	useEffect(() => {
-		nodeService.page(account,pageable).then((res) => {
+		nodeService.page(account, pageable).then((res) => {
 			setNodePage(res.data);
 		});
-	}, [pageable]);
+	}, [pageable,account]);
 
 	const getNodePage = () => {
-		nodeService.page(account,pageable).then((res) => {
+		nodeService.page(account, pageable).then((res) => {
 			setNodePage(res.data);
 		});
 	};
@@ -270,7 +270,11 @@ const Nodes: React.FC = () => {
 					{/* <CubeTransparentIcon className='w-6 h-6 inline-block mr-2 align-bottom' /> */}
 					<span>Nodes</span>
 				</h1>
-				<IconButton variants='primary' tips='新增节点' onClick={handleOpenAddNodeModal}>
+				<IconButton
+					variants='primary'
+					tips='新增节点'
+					onClick={handleOpenAddNodeModal}
+				>
 					<PlusIcon className='block w-4 h-4' />
 				</IconButton>
 			</div>
@@ -332,7 +336,11 @@ const Nodes: React.FC = () => {
 					</p>
 				</ModalBody>
 				<ModalFooter flex className='gap-2'>
-					<Button disabled={delNodeLoading} onClick={handleCloseDelNodeModal} variants='second'>
+					<Button
+						disabled={delNodeLoading}
+						onClick={handleCloseDelNodeModal}
+						variants='second'
+					>
 						取消
 					</Button>
 					<Button loading={delNodeLoading} onClick={handleDeleteNode}>
@@ -352,11 +360,18 @@ const Nodes: React.FC = () => {
 				<ModalBody>
 					<FormControl isRequired>
 						<FormLabel>节点名称</FormLabel>
-						<Input value={nodeName} onChange={(val) => setNodeName(val)} type='text' />
+						<Input
+							value={nodeName}
+							onChange={(val) => setNodeName(val)}
+							type='text'
+						/>
 					</FormControl>
 				</ModalBody>
 				<ModalFooter>
-					<Button disabled={nodeName.trim().length === 0} onClick={handleSaveNode}>
+					<Button
+						disabled={nodeName.trim().length === 0}
+						onClick={handleSaveNode}
+					>
 						保 存
 					</Button>
 				</ModalFooter>
@@ -373,11 +388,18 @@ const Nodes: React.FC = () => {
 				<ModalBody>
 					<FormControl isRequired>
 						<FormLabel>节点名称</FormLabel>
-						<Input value={updateNode?.name} onChange={(val) => setUpdateNodeName(val)} type='text' />
+						<Input
+							value={updateNode?.name}
+							onChange={(val) => setUpdateNodeName(val)}
+							type='text'
+						/>
 					</FormControl>
 				</ModalBody>
 				<ModalFooter>
-					<Button disabled={updateNode?.name.length === 0} onClick={handleUpdateNode}>
+					<Button
+						disabled={updateNode?.name.length === 0}
+						onClick={handleUpdateNode}
+					>
 						保 存
 					</Button>
 				</ModalFooter>

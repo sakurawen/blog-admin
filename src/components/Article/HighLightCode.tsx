@@ -1,5 +1,5 @@
-/* eslint-disable no-const-assign */
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
+import light from "prism-react-renderer/themes/github"
 
 interface CodeProps {
 	className: string;
@@ -21,7 +21,7 @@ const Code = (props: unknown) => {
 			code={(props as CodeProps).children.trim()}
 			language={lang}
 			{...defaultProps}
-			theme={undefined}
+			theme={light}
 		>
 			{({ className, style, tokens, getLineProps, getTokenProps }) => {
 				return (

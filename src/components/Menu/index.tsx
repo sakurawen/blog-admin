@@ -79,9 +79,9 @@ const Menu: React.FC<MenuProps> = (props) => {
 									className={({ isActive }) => {
 										return classNames(
 											'pl-4 block pr-8 py-2.5 text-xl transition',
-											'group-hover:bg-light-fading/80 dark:group-hover:bg-dark/80  rounded',
+											'group-hover:bg-light-fading/80 dark:group-hover:bg-dark rounded',
 											{
-												'text-theme-light font-bold bg-light-fading/80 dark:bg-dark/80 dark:text-theme-dark-light hover:text-theme-light-deep dark:hover:text-theme-dark':
+												'text-theme-light font-bold bg-light-fading/80 dark:bg-dark dark:text-theme-dark-light hover:text-theme-light-deep dark:hover:text-theme-dark':
 													isActive,
 												'text-dark-fading dark:text-light-fading hover:text-theme-light dark:hover:text-theme-dark':
 													!isActive,
