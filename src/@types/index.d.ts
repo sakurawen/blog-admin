@@ -25,7 +25,6 @@ export type ServiceResponse<T = any> = {
 	msg: string;
 };
 
-
 /**
  * 文章
  */

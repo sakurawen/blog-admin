@@ -50,7 +50,7 @@ const Menu: React.FC<MenuProps> = (props) => {
 	const { className } = props;
 
 	return (
-		<div className='hidden sm:block w-64 flex-shrink-0   relative z-30 '>
+		<div className='hidden sm:block select-none w-64 flex-shrink-0   relative z-30 '>
 			<div
 				className={cx(
 					'flex flex-col w-64 pt-6 pr-2 h-full bg-white dark:bg-dark fixed top-0 border-r border-dark/5 dark:border-light/5',

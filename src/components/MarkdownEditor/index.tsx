@@ -8,8 +8,14 @@ import React, {
 	useMemo,
 	memo,
 	useCallback,
+	startTransition,
 } from 'react';
-import { EyeIcon, PencilAltIcon, PhotographIcon, FilmIcon } from '@heroicons/react/outline';
+import {
+	EyeIcon,
+	PencilAltIcon,
+	PhotographIcon,
+	FilmIcon,
+} from '@heroicons/react/outline';
 import ArticleTemp from '@/components/Article';
 import { oss } from '@/utils';
 import cx from 'classnames';
@@ -17,7 +23,7 @@ import { withHistory } from 'slate-history';
 import { withReact, Slate, Editable } from 'slate-react';
 import { utils, renderLeaf, markdownDecorate } from './utils';
 import dayjs from 'dayjs';
-import { createEditor, Descendant, Transforms, Node } from 'slate';
+import { createEditor, Descendant, Transforms, Node,Editor } from 'slate';
 import { useToast } from '@chakra-ui/react';
 import { SaveIcon } from '@heroicons/react/outline';
 import { Article } from '@/@types';
@@ -83,7 +89,9 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 
 	const [editModal, setEditModal] = useState<Descendant[]>(
 		enableCache
-			? utils.deserializeEditContent(localStorage.getItem('cache_content') || '') || [
+			? utils.deserializeEditContent(
+					localStorage.getItem('cache_content') || ''
+			  ) || [
 					{
 						type: 'paragraph',
 						children: [{ text: '' }],
@@ -96,51 +104,48 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 	 * 重置编辑器
 	 */
 	const resetEditor = () => {
-    console.log("resetEditor")
-    localStorage.setItem("cache_content","")
-    localStorage.setItem("cache_title","")
-		const child = editor.children;
-		const lastPart = child.slice(child.length - 1, child.length)[0];
-		setEditData(
-			produce(editData, (d) => {
-				d.title = '';
-				d.content = '';
-			})
-		);
-		Transforms.delete(editor, {
-			at: {
-				anchor: {
-					path: [0, 0],
-					offset: 0,
+		return new Promise<void>((resolve) => {
+			console.log('resetEditor');
+			localStorage.setItem('cache_content', '');
+			localStorage.setItem('cache_title', '');
+			const child = editor.children;
+			const lastPart = child.slice(child.length - 1, child.length)[0];
+			setEditData(
+				produce(editData, (d) => {
+					d.title = '';
+					d.content = '';
+				})
+			);
+			Transforms.delete(editor, {
+				at: {
+					anchor: {
+						path: [0, 0],
+						offset: 0,
+					},
+					focus: {
+						path: [editor.children.length - 1, 0],
+						offset: Node.string(lastPart).length,
+					},
 				},
-				focus: {
-					path: [editor.children.length - 1, 0],
-					offset: Node.string(lastPart).length,
-				},
-			},
+			});
+			resolve();
 		});
-		return Promise.resolve();
 	};
-
-	const updateMdContentTimer = useRef<NodeJS.Timeout>();
 
 	/**
 	 * 处理编辑器变化
 	 * @param val
 	 */
 	const handleEditContentChange = (val: Descendant[]) => {
-		if (updateMdContentTimer.current) {
-			clearTimeout(updateMdContentTimer.current);
-		}
 		setEditModal(val);
-		updateMdContentTimer.current = setTimeout(() => {
+		startTransition(() => {
 			const mdContent = utils.serializeEditContent(val);
 			setEditData(
 				produce(editData, (d) => {
 					d.content = mdContent;
 				})
 			);
-		}, 200);
+		});
 	};
 	/** 处理编辑器点击事件 */
 	const handleEditKeydown = (e: KeyboardEvent) => {
@@ -219,7 +224,7 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 				localStorage.setItem('cache_content', editData.content || '');
 				localStorage.setItem('cache_title', editData.title || '');
 			}
-		}, 500);
+		}, 1000);
 	}, [editData.content, editData.title, enableCache]);
 
 	/**
@@ -264,7 +269,7 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 			.then((client) => {
 				client
 					.put(uploadFileName, file)
-					.then((res:any) => {
+					.then((res: any) => {
 						Transforms.insertText(editor, `![${res.name}](${res.url})\n`);
 					})
 					.finally(() => {
@@ -341,11 +346,18 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 	const _renderElement = useCallback(renderElement, []);
 
 	return (
-		<div className={cx(['pb-1 flex flex-col ', className])} style={isEditMode ? style : {}}>
+		<div
+			className={cx(['pb-1 flex flex-col ', className])}
+			style={isEditMode ? style : {}}
+		>
 			{/* title and tools  */}
 			<div className={cx('rounded mb-3 z-20 ')}>
 				<div className='flex items-center border-b border-gray-100 dark:border-dark-fading pb-6 justify-between'>
-					<div className={cx('flex-1 transition relative  border-gray-300 border-opacity-30 pr-2 mr-2')}>
+					<div
+						className={cx(
+							'flex-1 transition relative  border-gray-300 border-opacity-30 pr-2 mr-2'
+						)}
+					>
 						<div
 							className={cx(
 								'px-2.5 py-1 text-xs  rounded-md text-theme-light bg-theme-light/20 dark:text-theme-dark dark:bg-theme-dark/20',
@@ -392,10 +404,21 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 							<FilmIcon className='block w-4 h-4' />
 						</IconButton>
 					</div>
-					<IconButton tips={(isEditMode ? '预览' : '编辑') + ' (ctrl+alt+e)'} onClick={previewArticle}>
-						{isEditMode ? <EyeIcon className='block w-4 h-4' /> : <PencilAltIcon className='block w-4 h-4' />}
+					<IconButton
+						tips={(isEditMode ? '预览' : '编辑') + ' (ctrl+alt+e)'}
+						onClick={previewArticle}
+					>
+						{isEditMode ? (
+							<EyeIcon className='block w-4 h-4' />
+						) : (
+							<PencilAltIcon className='block w-4 h-4' />
+						)}
 					</IconButton>
-					<IconButton variants='primary' onClick={handleArticlePost} tips={enableCache ? '发布' : '保存'}>
+					<IconButton
+						variants='primary'
+						onClick={handleArticlePost}
+						tips={enableCache ? '发布' : '保存'}
+					>
 						<SaveIcon className='w-4 h-4 block ' />
 					</IconButton>
 				</div>
@@ -404,9 +427,13 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 			{isPreviewMode && (
 				<div className='flex-1'>
 					<div className='mb-4 mt-12 max-w-3xl mx-auto min-h-[24rem]'>
-						<h1 className='text-4xl text-auto-color leading-snug font-bold'>{editData.title}</h1>
+						<h1 className='text-4xl text-auto-color leading-snug font-bold'>
+							{editData.title}
+						</h1>
 						<p className='text-xs text-gray-400 mt-4 mb-2'>
-							{dayjs(editArticle?.create_time ?? new Date()).format('YYYY-MM-DD')}
+							{dayjs(editArticle?.create_time ?? new Date()).format(
+								'YYYY-MM-DD'
+							)}
 						</p>
 						<ArticleTemp>{editData.content}</ArticleTemp>
 					</div>
@@ -419,7 +446,11 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 					}}
 					className='flex-1 pt-3 pb-8 h-full relative rounded  transition-colors '
 				>
-					<Slate editor={editor} onChange={(val) => handleEditContentChange(val)} value={editModal}>
+					<Slate
+						editor={editor}
+						onChange={(val) => handleEditContentChange(val)}
+						value={editModal}
+					>
 						<Editable
 							renderLeaf={_renderLeaf}
 							decorate={_decorate}
@@ -447,7 +478,12 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 					</span>
 				</div>
 			)}
-			<Modal title='添加媒体' open={openMediaModal} onClose={handleCloseMediaModal} enableCloseButton>
+			<Modal
+				title='添加媒体'
+				open={openMediaModal}
+				onClose={handleCloseMediaModal}
+				enableCloseButton
+			>
 				<ModalBody>
 					<FormControl isRequired>
 						<FormLabel>媒体链接</FormLabel>
@@ -458,7 +494,10 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 					<Button onClick={handleCloseMediaModal} variants='second'>
 						取消
 					</Button>
-					<Button onClick={handleInsertMedia} disabled={mediaUrl.trim().length === 0}>
+					<Button
+						onClick={handleInsertMedia}
+						disabled={mediaUrl.trim().length === 0}
+					>
 						插入
 					</Button>
 				</ModalFooter>
