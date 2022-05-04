@@ -10,7 +10,7 @@ specifiers:
   '@heroicons/react': ^1.0.5
   '@iconify/react': ^3.2.1
   '@mdx-js/react': ^1.6.22
-  '@monado/scripts': ^0.0.36
+  '@monado/scripts': ^0.0.38
   '@reduxjs/toolkit': ^1.6.2
   '@testing-library/jest-dom': ^5.11.4
   '@testing-library/react': ^11.1.0
@@ -40,7 +40,7 @@ specifiers:
   react-dom: ^18.0.0
   react-i18next: ^11.14.3
   react-redux: ^7.2.6
-  react-router-dom: ^6.0.0
+  react-router-dom: ^6.3.0
   react-scripts: ^5.0.1
   react-syntax-highlighter: ^15.4.5
   slate: ^0.77.2
@@ -60,7 +60,7 @@ dependencies:
   '@headlessui/react': 1.6.0_ef5jwxihqo6n7gxfmzogljlgcm
   '@heroicons/react': 1.0.6_react@18.1.0
   '@mdx-js/react': 1.6.22_react@18.1.0
-  '@monado/scripts': 0.0.36
+  '@monado/scripts': 0.0.38
   '@reduxjs/toolkit': 1.8.1_zzxyysq6wldktrdb626h7upe3y
   '@testing-library/jest-dom': 5.16.4
   '@testing-library/react': 11.2.7_ef5jwxihqo6n7gxfmzogljlgcm
@@ -2928,8 +2928,8 @@ packages:
       react: 18.1.0
     dev: false
 
-  /@monado/scripts/0.0.36:
-    resolution: {integrity: sha512-eBu9Ht+4Kl7ySnWXWsIhoblw56LzX4owa68B6k7tTxlV3kI3xhCIqzfCs49Vh23PlAufCjaTRHnMLJE3uoQhoQ==}
+  /@monado/scripts/0.0.38:
+    resolution: {integrity: sha512-1sAMftcr87el6I+Fon5jk/cCQcfRvKrDBAxy4ZYyWLsG5EfIAuCoKDCcYW6knsDVwcfmJ+TDuGJ/Y0Kc9AHigQ==}
     hasBin: true
     dependencies:
       '@babel/core': 7.17.9
