@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Dialog } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
-import { LoadingOutlined } from '@ant-design/icons';
 import cx from 'classnames';
 import { useColorMode } from '@chakra-ui/react';
+import { Icon } from '@iconify/react';
 
 type DialogProps = {
 	open: boolean;
@@ -109,9 +109,9 @@ export const Modal: React.FC<DialogProps> = (props) => {
 									}}
 									className='absolute inset-0 rounded h-full w-full backdrop-blur-md text-black text-base flex justify-center items-center z-20 bg-gray-100 dark:bg-dark-fading dark:text-gray-100'
 								>
-									<LoadingOutlined
-										style={{ fontSize: 20, display: 'block' }}
-										className='block  leading-none mr-2'
+									<Icon
+										icon={'eos-icons:loading'}
+										className='align-middle mr-2 -ml-2'
 									/>
 									loading...
 								</motion.div>

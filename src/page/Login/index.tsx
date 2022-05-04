@@ -90,7 +90,7 @@ const Login: React.FC = () => {
 				opacity: 1,
 				translateX: 0,
 			}}
-			className={cx('bg-login bg-login-light', isDark ? 'bg-login-dark' : 'bg-login-light')}
+			className={cx('bg-login ', isDark ? 'bg-login-dark' : 'bg-login-light')}
 		>
 			<div className='flex items-center  justify-center h-screen mx-auto px-2'>
 				<div className='flex'>

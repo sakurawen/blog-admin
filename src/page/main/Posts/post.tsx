@@ -5,7 +5,7 @@ import useSWR from 'swr';
 import ArticleContent from '@/components/Article/index';
 import dayjs from 'dayjs';
 import { AnimatePresence, motion } from 'framer-motion';
-import { LoadingOutlined } from '@ant-design/icons';
+import {Icon} from "@iconify/react"
 import Toolbar from '@/components/Toolbar';
 
 const Article: React.FC = () => {
@@ -44,11 +44,7 @@ const Article: React.FC = () => {
 					</motion.div>
 				) : (
 					<motion.div className='flex items-center min-h-[24rem] justify-center'>
-						<LoadingOutlined
-							style={{
-								fontSize: 24,
-							}}
-						/>
+            <Icon  icon={"eos-icons:loading"} className="text-lg"/>
 					</motion.div>
 				)}
 			</AnimatePresence>

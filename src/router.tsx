@@ -38,7 +38,7 @@ const routes: RouteObject[] = [
 				),
 			},
 			{
-				path: '/conf',
+				path: 'conf',
 				element: (
 					<LoginRouter>
 						<Configuration />

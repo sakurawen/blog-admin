@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Icon } from '@iconify/react';
 
 type ButtonProps = {
 	classNames?: string;
@@ -59,7 +59,9 @@ const Button: React.FC<ButtonProps> = (props) => {
 				}
 			)}
 		>
-			{loading && <LoadingOutlined className='align-middle mr-2 -ml-2' />}
+			{loading && (
+				<Icon icon={'eos-icons:loading'} className='align-middle mr-2 -ml-2' />
+			)}
 			{children}
 		</button>
 	);

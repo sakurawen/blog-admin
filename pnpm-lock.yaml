@@ -8,6 +8,7 @@ specifiers:
   '@emotion/styled': ^11.8.1
   '@headlessui/react': ^1.5.0
   '@heroicons/react': ^1.0.5
+  '@iconify/react': ^3.2.1
   '@mdx-js/react': ^1.6.22
   '@monado/scripts': ^0.0.36
   '@reduxjs/toolkit': ^1.6.2
@@ -98,6 +99,7 @@ dependencies:
   web-vitals: 1.1.2
 
 devDependencies:
+  '@iconify/react': 3.2.1
   '@types/react-syntax-highlighter': 13.5.2
   autoprefixer: 9.8.8
   tailwindcss: 3.0.24
@@ -2584,6 +2586,10 @@ packages:
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: false
+
+  /@iconify/react/3.2.1:
+    resolution: {integrity: sha512-yKzixjC9ct9RC/aSGo1OGxkG2rpfhlr/urRz6k2YZlIBzn92PBTlqtSx8o8dFYEorr3eUFSCBZFzBy1yw5jsAA==}
+    dev: true
 
   /@istanbuljs/load-nyc-config/1.1.0:
     resolution: {integrity: sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ==}

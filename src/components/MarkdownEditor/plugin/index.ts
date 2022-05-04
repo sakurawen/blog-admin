@@ -44,7 +44,6 @@ export const withWYSIWYG = (editor: Editor) => {
 
 	editor.deleteBackward = (...args) => {
 		const { selection } = editor;
-		console.log('selection', selection);
 		if (selection) {
 			const match = Editor.above(editor, {
 				match: (n) => Editor.isBlock(editor, n),
