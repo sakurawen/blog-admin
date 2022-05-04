@@ -17,37 +17,37 @@ const overrideConfig: MarkdownToJSX.Overrides | undefined = {
 	},
 	h1: {
 		props: {
-			className: 'text-3xl font-bold',
+			className: 'text-3xl text-black !mt-8 font-bold',
 		},
 	},
 	h2: {
 		props: {
-			className: 'text-2xl font-bold',
+			className: 'text-2xl text-black !mt-8 font-bold',
 		},
 	},
 	h3: {
 		props: {
-			className: 'text-xl font-bold',
+			className: 'text-xl text-black !mt-8 font-bold',
 		},
 	},
 	h4: {
 		props: {
-			className: 'text-lg font-bold',
+			className: 'text-lg text-black !mt-8 font-bold',
 		},
 	},
 	h5: {
 		props: {
-			className: 'text-base font-bold',
+			className: 'text-base font-bold text-black !mt-8 font-bold',
 		},
 	},
 	h6: {
 		props: {
-			className: 'text-sm font-bold',
+			className: 'text-sm font-bold text-black !mt-8 font-bold',
 		},
 	},
 	p: {
 		props: {
-			className: 'text-base',
+			className: 'text-base leading-7',
 		},
 	},
 	a: {
@@ -75,17 +75,17 @@ const overrideConfig: MarkdownToJSX.Overrides | undefined = {
 	},
 	img: {
 		props: {
-			className: 'rounded shadow-lg ',
+			className: 'rounded-md shadow-lg my-4',
 		},
-	},
-	code: {
-		component: Code,
-		props: {},
 	},
 	blockquote: {
 		props: {
 			className: 'border-l-4 border-gray-900 pl-4 space-y-2 bg-gray-100 py-2',
 		},
+	},
+	code: {
+		component: Code,
+		props: {},
 	},
 };
 
