@@ -60,7 +60,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 			)}
 		>
 			{loading && (
-				<Icon icon={'eos-icons:loading'} className='align-middle mr-2 -ml-2' />
+				<Icon icon={'eos-icons:loading'} className='w-5 h-5 align-sub inline-block mr-2 -ml-2' />
 			)}
 			{children}
 		</button>
