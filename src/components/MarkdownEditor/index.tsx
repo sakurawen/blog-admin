@@ -426,7 +426,7 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 			{/* preview */}
 			{isPreviewMode && (
 				<div className='flex-1'>
-					<div className='mb-4 mt-12 max-w-3xl mx-auto min-h-[24rem]'>
+					<div className='mb-4 mt-12 max-w-2xl mx-auto min-h-[24rem]'>
 						<h1 className='text-4xl text-auto-color leading-snug font-bold'>
 							{editData.title}
 						</h1>
