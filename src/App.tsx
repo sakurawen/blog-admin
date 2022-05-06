@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useRoutes } from 'react-router-dom';
 import routes from '@/router';
 import { userService } from '@/api';
@@ -53,14 +53,14 @@ function App() {
 		}
 	}, [dispatch]);
 
-	return init ? (
-		<div className='App  min-h-screen'>{renderRoutes}</div>
-	) : (
+	return !init ? (
 		<div className='h-screen flex items-center justify-center'>
 			<div>
 				<Spinner size='lg' />
 			</div>
 		</div>
+	) : (
+		<div className='App  min-h-screen'>{renderRoutes}</div>
 	);
 }
 
