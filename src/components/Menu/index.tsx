@@ -57,18 +57,21 @@ const Menu: React.FC<MenuProps> = (props) => {
 					className
 				)}
 			>
-				<div className='pl-8'>
+				<div className='pl-6'>
 					<Link
 						className={cx(
-							'text-3xl font-bold font-josefin inline-block text-transparent bg-clip-text bg-gradient-to-br',
+							'text-2xl  font-bold flex font-josefin  items-center text-transparent bg-clip-text bg-gradient-to-br',
 							' from-theme-light  via-theme-light/80 to-theme-light-fading',
 							'dark:from-theme-dark dark:to-rose-400'
 						)}
 						to=''
 					>
-						Wen's
-						<br />
-						Blog
+						<img src={require('@/assets/logo.png')} className="w-12 h-12 mr-4" alt='menu logo' />
+						<div className='mt-2'>
+							Blog
+							<br />
+							Admin
+						</div>
 					</Link>
 				</div>
 				<div className='flex items-start flex-col mt-4'>
