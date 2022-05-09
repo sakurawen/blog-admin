@@ -55,7 +55,7 @@ const overrideConfig: MarkdownToJSX.Overrides | undefined = {
 			target: '_blank',
 			rel: 'noreferrer',
 			className:
-				'relative z-10 inline-block after:block after:absolute mx-0.5 px-0.5 after:block after:h-2 after:w-full after:-z-10 after:bottom-1 after:left-0 after:bg-blue-200',
+				'relative z-10 inline-block after:block  after:absolute mx-0.5 px-0.5 after:block after:h-2 after:w-full after:-z-10 after:bottom-1 after:left-0 after:bg-blue-200',
 		},
 	},
 	ul: {
@@ -80,7 +80,9 @@ const overrideConfig: MarkdownToJSX.Overrides | undefined = {
 	},
 	blockquote: {
 		props: {
-			className: 'border-l-4 border-blue-500 pl-4 space-y-2 bg-blue-100 py-2',
+			className: `relative my-4 before:font-sans before:content-blockquote-before before:pointer-events-none before:absolute before:leading-[0] before:left-2 before:top-4 before:inline-block before:text-5xl before:text-blue-500 
+                          after:font-sans after:content-blockquote-after after:pointer-events-none after:absolute  after:leading-[0] after:-bottom-3 after:right-2 after:inline-block after:text-5xl after:text-blue-500
+      border-blue-500 p-4 space-y-2 bg-blue-50 py-4`,
 		},
 	},
 	code: {

@@ -28,8 +28,11 @@ module.exports = {
 				'theme-dark-deep': '#104B82',
 			},
 			fontFamily: {
-				// noto: "'Noto Sans SC', sans-serif",
 				josefin: "'Josefin Sans', sans-serif",
+			},
+			content: {
+				'blockquote-before': '"\\201C"',
+				'blockquote-after': '"\\201D"',
 			},
 		},
 	},
