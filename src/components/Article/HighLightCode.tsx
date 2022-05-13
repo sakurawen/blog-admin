@@ -5,6 +5,7 @@ interface CodeProps {
 	className: string;
 	children: string;
 }
+
 const Code = (props: unknown) => {
 	const className: string = (props as CodeProps).className;
 	if (!className) {
