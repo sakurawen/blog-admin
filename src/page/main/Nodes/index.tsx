@@ -353,7 +353,7 @@ const Nodes: React.FC = () => {
 				onClose={handleCloseAddNodeModal}
 			>
 				<ModalBody>
-					<h1>节点名称</h1>
+					<h2 className='mb-2'>节点名称</h2>
 					<Input
 						value={nodeName}
 						onChange={(val) => setNodeName(val)}
@@ -379,7 +379,7 @@ const Nodes: React.FC = () => {
 				onClose={handleCloseUpdateNodeModal}
 			>
 				<ModalBody>
-					<h1>节点名称</h1>
+					<h2 className='mb-2'>节点名称</h2>
 					<Input
 						value={updateNode?.name}
 						onChange={(val) => setUpdateNodeName(val)}
