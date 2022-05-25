@@ -1,0 +1,15 @@
+{
+  "publicPath": "/",
+  "devServer": {
+    "port": 5000,
+    "proxy": {}
+  },
+  "featrue": {
+    "mdx": true,
+    "cssModule": false,
+    "scss": false
+  },
+  "plugins": {
+    "bundleAnalyzer": false
+  }
+}
