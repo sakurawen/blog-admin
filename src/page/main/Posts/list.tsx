@@ -3,7 +3,6 @@ import { Article, Node, Pageable } from '@/@types';
 import { postsService as articleService, nodeService } from '@/api';
 
 import { useNavigate } from 'react-router-dom';
-import { Spinner, useToast } from '@chakra-ui/react';
 import { TrashIcon } from '@heroicons/react/outline';
 import { Modal, ModalBody, ModalFooter } from '@/components/Modal';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -28,7 +27,6 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 	const navigate = useNavigate();
 	const cancel = useRef(axios.CancelToken.source());
 	const { searchNodeKey } = props;
-	const toast = useToast();
 	const { node_key } = useParams();
 	const [pageable, setPageable] = useState<Pageable>({
 		conditions: {
@@ -115,11 +113,11 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 			.then((res) => {
 				console.log('res:', res);
 				handleCloseDelModal();
-				toast({
-					position: 'top',
-					status: 'success',
-					title: '删除成功',
-				});
+				// toast({
+				// 	position: 'top',
+				// 	status: 'success',
+				// 	title: '删除成功',
+				// });
 				if (articlePage.count <= 1 && pageable.page.number !== 1) {
 					setPageable(
 						produce(pageable, (d) => {
@@ -133,11 +131,11 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 			})
 			.catch((err) => {
 				console.error('删除文章失败: ', err);
-				toast({
-					position: 'top',
-					status: 'error',
-					title: '删除文章失败',
-				});
+				// toast({
+				// 	position: 'top',
+				// 	status: 'error',
+				// 	title: '删除文章失败',
+				// });
 			})
 			.finally(() => {
 				setDelLoading(false);
@@ -308,7 +306,7 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 					}}
 					className='flex items-center justify-center mt-24'
 				>
-					<Spinner size='lg' />
+          loading...
 				</motion.div>
 			)}
 		</AnimatePresence>

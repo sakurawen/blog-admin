@@ -8,7 +8,7 @@
 	}
 	html,
 	body {
-		@apply bg-light dark:!bg-dark;
+		@apply bg-light dark:!bg-dark ;
 	}
 	*::selection {
 		@apply bg-theme-light/20 text-theme-light-deep dark:bg-theme-dark-light/20 dark:text-blue-400;
@@ -30,6 +30,7 @@
 
 * {
 	scroll-behavior: smooth;
+  font-family: 'Noto Sans SC', sans-serif;
 }
 
 .bg-login {

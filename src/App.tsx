@@ -1,11 +1,9 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRoutes } from 'react-router-dom';
 import routes from '@/router';
 import { userService } from '@/api';
 import { userActions } from '@/store/reducer/userSlice';
 import { useDispatch } from 'react-redux';
-import { Spinner } from '@chakra-ui/react';
-import { useColorMode } from '@chakra-ui/react';
 /**
  * App 入口
  * @returns
@@ -14,17 +12,6 @@ function App() {
 	const [init, setInit] = useState(false);
 	const renderRoutes = useRoutes(routes);
 	const dispatch = useDispatch();
-	// 主题初始化
-	const { colorMode } = useColorMode();
-	useEffect(() => {
-		if (colorMode === 'dark') {
-			document.documentElement.classList.add('dark');
-			return;
-		}
-		if (colorMode === 'light') {
-			document.documentElement.classList.remove('dark');
-		}
-	}, [colorMode]);
 
 	/**
 	 * 验证jwt
@@ -55,9 +42,7 @@ function App() {
 
 	return !init ? (
 		<div className='h-screen flex items-center justify-center'>
-			<div>
-				<Spinner size='lg' />
-			</div>
+			<div>loading...</div>
 		</div>
 	) : (
 		<div className='App  min-h-screen'>{renderRoutes}</div>

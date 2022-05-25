@@ -1,32 +1,27 @@
 import React from 'react';
 import Row from '@/components/Row';
-import { useColorMode } from '@chakra-ui/react';
 import { userActions } from '@/store/reducer/userSlice';
 import { useDispatch } from 'react-redux';
-import { useToast } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@heroicons/react/outline';
 import cx from 'classnames';
 import { motion } from 'framer-motion';
+import { showNotification } from '@mantine/notifications';
+import Success from '@/components/Icon/Success';
 
-const Configuration:React.FC = () => {
-	const { colorMode, setColorMode } = useColorMode();
+const Configuration: React.FC = () => {
 	const dispatch = useDispatch();
-	const isDark = colorMode === 'dark';
-	const toast = useToast();
 
 	const handleSignOut = () => {
 		dispatch(userActions.logout());
-		toast({
-			status: 'info',
+		showNotification({
 			title: '退出登录',
-			position: 'top',
-			duration: 1500,
+      color:"blue",
+			message: '',
+			icon: <Success />,
 		});
 	};
 
-	const handleChangeTheme = (theme: string) => {
-		setColorMode(theme);
-	};
+	const handleChangeTheme = (theme: string) => {};
 
 	return (
 		<motion.div
@@ -46,9 +41,7 @@ const Configuration:React.FC = () => {
 					<div
 						className={cx(
 							' cursor-pointer select-none w-32 bg-light ring-2 ring-transparent text-dark py-4 rounded text-center',
-							{
-								'ring-theme-light ': !isDark,
-							}
+							'ring-theme-light '
 						)}
 						onClick={() => handleChangeTheme('light')}
 					>
@@ -56,10 +49,7 @@ const Configuration:React.FC = () => {
 					</div>
 					<div
 						className={cx(
-							' cursor-pointer select-none w-32 bg-dark ring-2 ring-transparent text-white py-4 rounded text-center',
-							{
-								'ring-theme-dark-light': isDark,
-							}
+							' cursor-pointer select-none w-32 bg-dark ring-2 ring-transparent text-white py-4 rounded text-center'
 						)}
 						onClick={() => handleChangeTheme('dark')}
 					>

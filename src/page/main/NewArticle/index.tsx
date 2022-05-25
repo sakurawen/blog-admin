@@ -1,15 +1,16 @@
 import React, { useRef, useState, useMemo } from 'react';
 import MarkdownEditor, { EditorRef } from '@/components/MarkdownEditor';
 import { useNavigate } from 'react-router-dom';
-import {  nodeService, postsService } from '@/api';
-import { useToast } from '@chakra-ui/react';
+import { nodeService, postsService } from '@/api';
 import { motion } from 'framer-motion';
 import { Modal, ModalBody, ModalFooter } from '@/components/Modal';
 import Button from '@/components/Button';
 import { useAppSelector } from '@/store';
 import useSWR from 'swr';
 import Select from '@/components/Select';
-import { FormControl, FormLabel } from '@chakra-ui/react';
+import { showNotification } from '@mantine/notifications';
+import Error from '@/components/Icon/Error';
+import Success from '@/components/Icon/Success';
 
 /**
  * 编辑页面
@@ -38,18 +39,15 @@ const NewArticle: React.FC = () => {
 	}>();
 
 	const navigate = useNavigate();
-	const toast = useToast();
 	const jumpKey = useRef('');
 	const handleArticleSave = () => {
 		const { title, content } = editData.current;
 		if (content.trim().length === 0 || title.trim().length === 0) {
-			toast({
-				position: 'top',
+			showNotification({
 				title: '发布失败',
-				status: 'error',
-				description: '文章内容和文章标题不能为空',
-				isClosable: true,
-				duration: 2000,
+				message: '文章内容和文章标题不能为空',
+				color: 'red',
+				icon: <Error />,
 			});
 			return;
 		}
@@ -58,11 +56,10 @@ const NewArticle: React.FC = () => {
 			.then((res) => {
 				editor.current?.reset().then(() => {
 					jumpKey.current = res.data.article_key;
-					toast({
-						position: 'top',
-						title: '保存成功',
-						status: 'success',
-						duration: 2000,
+					showNotification({
+						message: '保存成功',
+						color: 'green',
+						icon: <Success />,
 					});
 					setLoading(false);
 					if (jumpKey.current.length !== 0) {
@@ -72,11 +69,10 @@ const NewArticle: React.FC = () => {
 			})
 			.catch((err) => {
 				console.error('发布文章失败:', err);
-				toast({
-					position: 'top',
-					title: `保存失败:${err}`,
-					status: 'error',
-					duration: 2000,
+				showNotification({
+					message: `保存失败:${err}`,
+					color: 'red',
+					icon: <Error />,
 				});
 				setLoading(false);
 			});
@@ -102,13 +98,11 @@ const NewArticle: React.FC = () => {
 			editData.current.title.trim().length === 0 ||
 			editData.current.content.trim().length === 0
 		) {
-			toast({
-				position: 'top',
+			showNotification({
 				title: '发布失败',
-				status: 'error',
-				description: '文章内容和文章标题不能为空',
-				isClosable: true,
-				duration: 2000,
+				color: 'red',
+				message: '文章内容和文章标题不能为空',
+				icon: <Error />,
 			});
 			return;
 		}
@@ -143,15 +137,13 @@ const NewArticle: React.FC = () => {
 				onClose={handleCloseAddMocal}
 			>
 				<ModalBody>
-					<FormControl isRequired>
-						<FormLabel>发布节点</FormLabel>
-						<Select
-							placeholder='选择发布节点'
-							options={nodeOptions ?? []}
-							value={articleNode}
-							onChange={(val) => setArticleNode(val)}
-						/>
-					</FormControl>
+					<h1>发布节点</h1>
+					<Select
+						placeholder='选择发布节点'
+						options={nodeOptions ?? []}
+						value={articleNode}
+						onChange={(val) => setArticleNode(val)}
+					/>
 				</ModalBody>
 				<ModalFooter flex>
 					<Button

@@ -1,17 +1,18 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import MarkdownEditor from '@/components/MarkdownEditor';
 import { useParams } from 'react-router-dom';
-import {  nodeService, postsService } from '@/api';
+import { nodeService, postsService } from '@/api';
 import { Article } from '@/@types';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, ModalBody, ModalFooter } from '@/components/Modal';
 import Select from '@/components/Select';
 import Button from '@/components/Button';
-import { FormControl, FormLabel } from '@chakra-ui/react';
 import useSWR from 'swr';
 import { useAppSelector } from '@/store';
+import { showNotification } from '@mantine/notifications';
+import Success from '@/components/Icon/Success';
+import Error from '@/components/Icon/Error';
 
 /**
  * 文章编辑
@@ -35,9 +36,11 @@ const EditArticle: React.FC = () => {
 	}, [key]);
 
 	const [loading, setLoading] = useState(false);
-	const toast = useToast();
 
-	const { data: nodes } = useSWR(['/node/all', userInfo?.account], (_, account) => nodeService.all(account || ''));
+	const { data: nodes } = useSWR(
+		['/node/all', userInfo?.account],
+		(_, account) => nodeService.all(account || '')
+	);
 	const nodeOptions = useMemo(
 		() =>
 			nodes?.data.map((item) => {
@@ -48,7 +51,10 @@ const EditArticle: React.FC = () => {
 			}),
 		[nodes?.data]
 	);
-	const [articleNode, setArticleNode] = useState<{ text: string; value: any }>();
+	const [articleNode, setArticleNode] = useState<{
+		text: string;
+		value: any;
+	}>();
 
 	const [openSelectNodeModal, setOpenSelectNodeModal] = useState(false);
 
@@ -57,7 +63,9 @@ const EditArticle: React.FC = () => {
 	 * @returns
 	 */
 	const getLegacySelectNode = () => {
-		const node = nodeOptions?.find((item) => item.value === editArticle?.node_key);
+		const node = nodeOptions?.find(
+			(item) => item.value === editArticle?.node_key
+		);
 		if (node) {
 			return node;
 		}
@@ -102,20 +110,18 @@ const EditArticle: React.FC = () => {
 				node_key: articleNode?.value,
 			})
 			.then((res) => {
-				toast({
-					position: 'top',
-					title: '保存成功',
-					status: 'success',
-					duration: 1500,
+				showNotification({
+					message: '保存成功',
+					color: 'green',
+					icon: <Success />,
 				});
 				navigate(`../post/${res.data.article_key}`);
 			})
 			.catch((err) => {
-				toast({
-					position: 'top',
-					title: '保存失败',
-					status: 'error',
-					duration: 1500,
+				showNotification({
+					message: '保存失败',
+					icon: <Error />,
+					color: 'red',
 				});
 			})
 			.finally(() => {
@@ -158,21 +164,27 @@ const EditArticle: React.FC = () => {
 				onClose={handleCloseSelectNodeModal}
 			>
 				<ModalBody>
-					<FormControl isRequired>
-						<FormLabel>发布节点</FormLabel>
-						<Select
-							placeholder='选择发布节点'
-							options={nodeOptions ?? []}
-							value={articleNode}
-							onChange={(val) => setArticleNode(val)}
-						/>
-					</FormControl>
+					<h1>发布节点</h1>
+					<Select
+						placeholder='选择发布节点'
+						options={nodeOptions ?? []}
+						value={articleNode}
+						onChange={(val) => setArticleNode(val)}
+					/>
 				</ModalBody>
 				<ModalFooter flex>
-					<Button disabled={loading} variants='second' onClick={handleCloseSelectNodeModal}>
+					<Button
+						disabled={loading}
+						variants='second'
+						onClick={handleCloseSelectNodeModal}
+					>
 						取消
 					</Button>
-					<Button loading={loading} onClick={handlePost} disabled={articleNode === undefined}>
+					<Button
+						loading={loading}
+						onClick={handlePost}
+						disabled={articleNode === undefined}
+					>
 						确定
 					</Button>
 				</ModalFooter>

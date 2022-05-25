@@ -1,20 +1,13 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from '@/App';
-import reportWebVitals from '@/reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { NotificationsProvider } from '@mantine/notifications';
 import store from '@/store';
 import { Provider } from 'react-redux';
 import { SWRConfig } from 'swr';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import '@/i18n';
 import '@/index.css';
-
-const theme = extendTheme({
-	fonts: {
-		body: 'Noto Sans SC, sans-serif',
-	},
-});
 
 const container = document.getElementById('root') as HTMLElement;
 
@@ -29,13 +22,15 @@ root.render(
 				dedupingInterval: 1000 * 2,
 			}}
 		>
-			<Provider store={store}>
-				<ChakraProvider theme={theme}>
+			<NotificationsProvider
+				position='top-center'
+				zIndex={2077}
+				autoClose={5000}
+			>
+				<Provider store={store}>
 					<App />
-				</ChakraProvider>
-			</Provider>
+				</Provider>
+			</NotificationsProvider>
 		</SWRConfig>
 	</Router>
 );
-
-reportWebVitals();

@@ -23,12 +23,10 @@ import { withHistory } from 'slate-history';
 import { withReact, Slate, Editable } from 'slate-react';
 import { utils, renderLeaf, markdownDecorate } from './utils';
 import dayjs from 'dayjs';
-import { createEditor, Descendant, Transforms, Node,Editor } from 'slate';
-import { useToast } from '@chakra-ui/react';
+import { createEditor, Descendant, Transforms, Node, Editor } from 'slate';
 import { SaveIcon } from '@heroicons/react/outline';
 import { Article } from '@/@types';
 import { produce } from 'immer';
-import { FormControl, FormLabel } from '@chakra-ui/react';
 import Button from '@/components/Button';
 import IconButton from '@/components/IconButton';
 import Input from '@/components/Input';
@@ -57,7 +55,6 @@ type EditorProps = {
  */
 const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 	const { className, onPost, style, enableCache, editArticle } = props;
-	const toast = useToast();
 	const [mode, setMode] = useState<'edit' | 'preview'>('edit');
 	const [editData, setEditData] = useState(
 		enableCache
@@ -252,12 +249,12 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 
 		const file = files[0];
 		if (file.size > 1024 * 1024 * 2) {
-			toast({
-				title: '错误',
-				description: '请上传文件大小2M以内的图片',
-				position: 'top',
-				duration: 2000,
-			});
+			// toast({
+			// 	title: '错误',
+			// 	description: '请上传文件大小2M以内的图片',
+			// 	position: 'top',
+			// 	duration: 2000,
+			// });
 			uploadInput.current.value = '';
 			return;
 		}
@@ -279,11 +276,11 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 					});
 			})
 			.catch(() => {
-				toast({
-					title: '系统繁忙',
-					status: 'error',
-					position: 'top',
-				});
+				// toast({
+				// 	title: '系统繁忙',
+				// 	status: 'error',
+				// 	position: 'top',
+				// });
 			});
 	};
 	/**
@@ -324,17 +321,17 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 			const comp = utils.getMediaComponentStr(mediaUrl);
 			Transforms.insertText(editor, comp || '');
 			handleCloseMediaModal();
-			toast({
-				position: 'top',
-				title: '插入媒体成功',
-				duration: 1500,
-			});
+			// toast({
+			// 	position: 'top',
+			// 	title: '插入媒体成功',
+			// 	duration: 1500,
+			// });
 		} catch (err) {
-			toast({
-				position: 'top',
-				title:(err as Error).message,
-				duration: 1500,
-			});
+			// toast({
+			// 	position: 'top',
+			// 	title:(err as Error).message,
+			// 	duration: 1500,
+			// });
 			console.log(err);
 		}
 	};
@@ -485,10 +482,8 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 				enableCloseButton
 			>
 				<ModalBody>
-					<FormControl isRequired>
-						<FormLabel>媒体链接</FormLabel>
-						<Input value={mediaUrl} onChange={(val) => setMediaUrl(val)} />
-					</FormControl>
+					<h2 className='mb-2'>媒体链接</h2>
+					<Input value={mediaUrl} onChange={(val) => setMediaUrl(val)} />
 				</ModalBody>
 				<ModalFooter flex>
 					<Button onClick={handleCloseMediaModal} variants='second'>

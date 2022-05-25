@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Dialog } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import cx from 'classnames';
-import { useColorMode } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 
 type DialogProps = {
@@ -30,9 +29,6 @@ export const Modal: React.FC<DialogProps> = (props) => {
 		enableCloseButton,
 		className,
 	} = props;
-
-	const { colorMode } = useColorMode();
-	const isDark = colorMode === 'dark';
 
 	const handleMaskClick = () => {
 		!loading && maskClose && onClose();
@@ -68,10 +64,7 @@ export const Modal: React.FC<DialogProps> = (props) => {
 						className='flex justify-center mx-2 items-center min-h-screen'
 					>
 						<div
-							className={cx(
-								'fixed inset-0 backdrop-blur',
-								isDark ? 'bg-light-fading/10' : 'bg-dark-fading/20'
-							)}
+							className={cx('fixed inset-0 backdrop-blur', 'bg-dark-fading/20')}
 							onClick={handleMaskClick}
 						></div>
 						<motion.div

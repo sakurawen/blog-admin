@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { PlusIcon, TrashIcon } from '@heroicons/react/outline';
-import { FormControl, FormLabel, useToast } from '@chakra-ui/react';
 import { Modal, ModalBody, ModalFooter } from '@/components/Modal';
 import Input from '@/components/Input';
 import { nodeService } from '@/api';
@@ -15,6 +14,9 @@ import Search from '@/components/Search';
 import Empty from '@/components/Empty';
 import { produce } from 'immer';
 import { useAppSelector } from '@/store';
+import { showNotification } from '@mantine/notifications';
+import Error from '@/components/Icon/Error';
+import Success from '@/components/Icon/Success';
 
 /**
  * 节点页面
@@ -23,7 +25,6 @@ import { useAppSelector } from '@/store';
 const Nodes: React.FC = () => {
 	const navigate = useNavigate();
 	const account = useAppSelector((state) => state.user.info?.account) || '';
-	const toast = useToast();
 	const [openSaveNodeModal, setOpenSaveNodeModal] = useState(false);
 	const [openUpdateNodeModal, setOpenUpdateNodeModal] = useState(false);
 
@@ -51,7 +52,7 @@ const Nodes: React.FC = () => {
 		nodeService.page(account, pageable).then((res) => {
 			setNodePage(res.data);
 		});
-	}, [pageable,account]);
+	}, [pageable, account]);
 
 	const getNodePage = () => {
 		nodeService.page(account, pageable).then((res) => {
@@ -104,22 +105,20 @@ const Nodes: React.FC = () => {
 				name: updateNode?.name || '',
 			})
 			.then(() => {
-				toast({
-					position: 'top',
-					status: 'success',
-					duration: 1000,
-					title: '更新节点成功',
+				showNotification({
+					message: '更新节点成功',
+          color:"green",
+					icon: <Success />,
 				});
 				setOpenUpdateNodeModal(false);
 				setUpdateNode(undefined);
 				getNodePage();
 			})
 			.catch((err) => {
-				toast({
-					position: 'top',
-					status: 'error',
-					duration: 1000,
-					title: err,
+				showNotification({
+					icon: <Error />,
+          color:"red",
+					message: 'err',
 				});
 			})
 			.finally(() => {
@@ -138,21 +137,19 @@ const Nodes: React.FC = () => {
 			.then(() => {
 				setNodeName('');
 				setOpenSaveNodeModal(false);
-				toast({
-					title: '新增节点成功',
-					duration: 1500,
-					position: 'top',
-					status: 'success',
+				showNotification({
+					message: '新增节点成功',
+					color: 'green',
+					icon: <Success />,
 				});
 				getNodePage();
 			})
 			.catch((err) => {
 				console.log('err:', err);
-				toast({
-					title: err,
-					duration: 1500,
-					position: 'top',
-					status: 'error',
+				showNotification({
+					message: err,
+					color: 'red',
+					icon: <Error />,
 				});
 			})
 			.finally(() => {
@@ -185,11 +182,10 @@ const Nodes: React.FC = () => {
 			.del(delNode.current.node_key)
 			.then((res) => {
 				handleCloseDelNodeModal();
-				toast({
-					title: '删除节点成功',
-					position: 'top',
-					status: 'success',
-					duration: 1000,
+				showNotification({
+					message: '删除节点成功',
+					color: 'green',
+					icon: <Success />,
 				});
 				if (nodePage.count <= 1) {
 					setPageable(
@@ -203,11 +199,10 @@ const Nodes: React.FC = () => {
 			})
 			.catch((err) => {
 				console.log('del node error:', err);
-				toast({
-					title: err,
-					position: 'top',
-					status: 'error',
-					duration: 1500,
+				showNotification({
+					message: err,
+					color: 'red',
+					icon: <Error />,
 				});
 			})
 			.finally(() => {
@@ -358,14 +353,12 @@ const Nodes: React.FC = () => {
 				onClose={handleCloseAddNodeModal}
 			>
 				<ModalBody>
-					<FormControl isRequired>
-						<FormLabel>节点名称</FormLabel>
-						<Input
-							value={nodeName}
-							onChange={(val) => setNodeName(val)}
-							type='text'
-						/>
-					</FormControl>
+					<h1>节点名称</h1>
+					<Input
+						value={nodeName}
+						onChange={(val) => setNodeName(val)}
+						type='text'
+					/>
 				</ModalBody>
 				<ModalFooter>
 					<Button
@@ -386,14 +379,12 @@ const Nodes: React.FC = () => {
 				onClose={handleCloseUpdateNodeModal}
 			>
 				<ModalBody>
-					<FormControl isRequired>
-						<FormLabel>节点名称</FormLabel>
-						<Input
-							value={updateNode?.name}
-							onChange={(val) => setUpdateNodeName(val)}
-							type='text'
-						/>
-					</FormControl>
+					<h1>节点名称</h1>
+					<Input
+						value={updateNode?.name}
+						onChange={(val) => setUpdateNodeName(val)}
+						type='text'
+					/>
 				</ModalBody>
 				<ModalFooter>
 					<Button
