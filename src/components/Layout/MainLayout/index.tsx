@@ -2,7 +2,6 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Menu from '@/components/Menu';
 import Navbar from '@/components/Navbar';
-import BottomNav from '@/components/BottomNav';
 
 const AdminLayout: React.FC = () => {
 	return (
@@ -14,7 +13,6 @@ const AdminLayout: React.FC = () => {
 					<Outlet />
 				</div>
 			</div>
-			<BottomNav />
 		</div>
 	);
 };

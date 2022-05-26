@@ -119,10 +119,10 @@ const NewArticle: React.FC = () => {
 				opacity: 1,
 				translateX: 0,
 			}}
+			className='h-full'
 		>
-			<div>
+			<div className='h-full'>
 				<MarkdownEditor
-					className='h-editor'
 					ref={editor}
 					enableCache={true}
 					onPost={handleOpenAddModal}

@@ -68,9 +68,6 @@
 	.h-edit-editor {
 		@apply h-edit-mobile-editor sm:h-edit-pc-editor;
 	}
-	.h-editor {
-		@apply h-mobile-editor sm:h-pc-editor;
-	}
 	.bg-blur {
 		@apply bg-opacity-100;
 	}

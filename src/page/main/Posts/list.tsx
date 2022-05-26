@@ -3,7 +3,7 @@ import { Article, Node, Pageable } from '@/@types';
 import { postsService as articleService, nodeService } from '@/api';
 
 import { useNavigate } from 'react-router-dom';
-import { TrashIcon } from '@heroicons/react/outline';
+import { PlusIcon, TrashIcon } from '@heroicons/react/outline';
 import { Modal, ModalBody, ModalFooter } from '@/components/Modal';
 import { AnimatePresence, motion } from 'framer-motion';
 import Button from '@/components/Button';
@@ -15,6 +15,9 @@ import Search from '@/components/Search';
 import Empty from '@/components/Empty';
 import axios from 'axios';
 import { useAppSelector } from '@/store';
+import IconButton from '@/components/IconButton';
+import NewArticle from '@/page/main/NewArticle';
+
 type PostsListProsp = {
 	searchNodeKey?: boolean;
 };
@@ -76,7 +79,7 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 				setArticlePage(res.data);
 			})
 			.catch(() => {});
-	}, [pageable,account]);
+	}, [pageable, account]);
 
 	const getArticlePage = () => {
 		cancelRequest();
@@ -113,11 +116,6 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 			.then((res) => {
 				console.log('res:', res);
 				handleCloseDelModal();
-				// toast({
-				// 	position: 'top',
-				// 	status: 'success',
-				// 	title: '删除成功',
-				// });
 				if (articlePage.count <= 1 && pageable.page.number !== 1) {
 					setPageable(
 						produce(pageable, (d) => {
@@ -131,11 +129,6 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 			})
 			.catch((err) => {
 				console.error('删除文章失败: ', err);
-				// toast({
-				// 	position: 'top',
-				// 	status: 'error',
-				// 	title: '删除文章失败',
-				// });
 			})
 			.finally(() => {
 				setDelLoading(false);
@@ -190,6 +183,8 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 		}, 500);
 	};
 
+	const [openAdd, setOpenAdd] = useState(false);
+
 	return (
 		<AnimatePresence>
 			{!!articlePage ? (
@@ -207,12 +202,21 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 						translateX: 10,
 					}}
 				>
-					<h1 className='mb-6 text-2xl  font-bold text-auto-color'>
-						Posts
-						<span className='text-sm font-normal'>
-							{' '}
-							/ {searchNodeKey ? node?.name : 'all'}
+					<h1 className='mb-6 text-2xl flex justify-between  font-bold text-auto-color'>
+						<span>
+							Posts
+							<span className='text-sm font-normal'>
+								{' '}
+								/ {searchNodeKey ? node?.name : 'all'}
+							</span>
 						</span>
+						<IconButton
+							variants='primary'
+							tips='新增节点'
+							onClick={() => setOpenAdd(true)}
+						>
+							<PlusIcon className='block w-4 h-4' />
+						</IconButton>
 					</h1>
 					<Search value={searchVal} onChange={handleSearchValChange} />
 					<div>
@@ -289,6 +293,19 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 							</div>
 						</ModalFooter>
 					</Modal>
+					{/* 新增文章 */}
+					<Modal
+						loading={false}
+						enableCloseButton
+						open={openAdd}
+						onClose={() => setOpenAdd(false)}
+						title='新增文章'
+						className='w-[98%] h-[96%] overflow-hidden pb-4'
+					>
+						<ModalBody className='h-[94%]'>
+							<NewArticle />
+						</ModalBody>
+					</Modal>
 				</motion.div>
 			) : (
 				<motion.div
@@ -306,7 +323,7 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 					}}
 					className='flex items-center justify-center mt-24'
 				>
-          loading...
+					loading...
 				</motion.div>
 			)}
 		</AnimatePresence>

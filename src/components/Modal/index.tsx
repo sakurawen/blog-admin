@@ -61,7 +61,7 @@ export const Modal: React.FC<DialogProps> = (props) => {
 						exit={{
 							opacity: 0,
 						}}
-						className='flex justify-center mx-2 items-center min-h-screen'
+						className='flex justify-center mx-2 items-center h-screen'
 					>
 						<div
 							className={cx('fixed inset-0 backdrop-blur', 'bg-dark-fading/20')}
@@ -84,7 +84,7 @@ export const Modal: React.FC<DialogProps> = (props) => {
 								scale: 0,
 							}}
 							className={cx(
-								'relative shadow-xl   bg-white dark:bg-dark  dark:text-white rounded p-6 text-black mx-auto w-96',
+								'w-96 relative shadow-xl   bg-white dark:bg-dark  dark:text-white rounded p-6 text-black mx-auto ',
 								className
 							)}
 						>
@@ -122,7 +122,7 @@ export const Modal: React.FC<DialogProps> = (props) => {
 									{title}
 								</Dialog.Title>
 							)}
-							<div>{children}</div>
+							{children}
 						</motion.div>
 					</motion.div>
 				</Dialog>

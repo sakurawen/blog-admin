@@ -344,12 +344,12 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 
 	return (
 		<div
-			className={cx(['pb-1 flex flex-col ', className])}
+			className={cx(['pb-1 flex flex-col  h-full', className])}
 			style={isEditMode ? style : {}}
 		>
 			{/* title and tools  */}
 			<div className={cx('rounded mb-3 z-20 ')}>
-				<div className='flex items-center border-b border-gray-100 dark:border-dark-fading pb-6 justify-between'>
+				<div className='flex items-center border-b border-gray-100 mt-1 dark:border-dark-fading pb-6 justify-between'>
 					<div
 						className={cx(
 							'flex-1 transition relative  border-gray-300 border-opacity-30 pr-2 mr-2'
@@ -422,8 +422,8 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 			</div>
 			{/* preview */}
 			{isPreviewMode && (
-				<div className='flex-1'>
-					<div className='mb-4 mt-12 max-w-2xl mx-auto min-h-[24rem]'>
+				<div className='flex-1 overflow-scroll'>
+					<div className='mb-4 mt-12 max-w-2xl mx-auto min-h-[24rem] '>
 						<h1 className='text-4xl text-auto-color leading-snug font-bold'>
 							{editData.title}
 						</h1>
@@ -438,10 +438,7 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 			)}
 			{isEditMode && (
 				<div
-					style={{
-						height: 'calc(100% - 6rem)',
-					}}
-					className='flex-1 pt-3 pb-8 h-full relative rounded  transition-colors '
+					className='flex-1 pt-3 pb-8 relative box-border rounded overflow-scroll transition-colors '
 				>
 					<Slate
 						editor={editor}
@@ -454,7 +451,7 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 							renderElement={_renderElement}
 							aria-label='editor'
 							className={cx(
-								'leading-relaxed break-words font-noto text-lg text-dark  pb-32 w-full h-full overflow-y-scroll dark:text-gray-300'
+								'leading-relaxed break-words font-noto text-lg text-dark  box-content w-full h-full overflow-y-scroll dark:text-gray-300'
 							)}
 							spellCheck={false}
 							onKeyDown={handleEditKeydown}

@@ -28,15 +28,6 @@ const routes: RouteObject[] = [
 					</LoginRouter>
 				),
 			},
-
-			{
-				path: 'new',
-				element: (
-					<LoginRouter>
-						<NewArticle />
-					</LoginRouter>
-				),
-			},
 			{
 				path: 'conf',
 				element: (

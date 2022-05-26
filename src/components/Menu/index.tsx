@@ -23,12 +23,6 @@ export const menu = [
 		icon: ViewListIcon,
 	},
 	{
-		path: 'new',
-		text: 'New',
-		desc: '新增',
-		icon: PencilAltIcon,
-	},
-	{
 		path: 'conf',
 		text: 'Setting',
 		desc: '设置',
