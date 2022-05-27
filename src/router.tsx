@@ -9,7 +9,6 @@ import Posts from '@/page/main/Posts/post';
 import Login from '@/page/Login';
 import Nodes from '@/page/main/Nodes';
 import NotFound from '@/page/Result';
-import Configuration from '@/page/main/Confguration';
 
 const routes: RouteObject[] = [
 	{
@@ -25,14 +24,6 @@ const routes: RouteObject[] = [
 				element: (
 					<LoginRouter>
 						<Nodes />
-					</LoginRouter>
-				),
-			},
-			{
-				path: 'conf',
-				element: (
-					<LoginRouter>
-						<Configuration />
 					</LoginRouter>
 				),
 			},

@@ -2,9 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import {
-	PencilAltIcon,
 	CubeTransparentIcon,
-	CogIcon,
 	ViewListIcon,
 } from '@heroicons/react/outline';
 import cx from 'classnames';
@@ -21,12 +19,6 @@ export const menu = [
 		text: 'Posts',
 		desc: '文章',
 		icon: ViewListIcon,
-	},
-	{
-		path: 'conf',
-		text: 'Setting',
-		desc: '设置',
-		icon: CogIcon,
 	},
 ];
 
