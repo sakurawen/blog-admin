@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { userService } from '@/api';
 import { useDispatch } from 'react-redux';
 import { userActions } from '@/store/reducer/userSlice';
@@ -29,7 +29,7 @@ const Login: React.FC = () => {
 	/**
 	 * 提交表单
 	 */
-	const handleSubmit = () => {
+	const handleSubmit = useCallback(() => {
 		if (
 			loginForm.account.trim().length === 0 ||
 			loginForm.pwd.trim().length === 0
@@ -38,7 +38,7 @@ const Login: React.FC = () => {
 				title: '登录失败',
 				message: '请输入账号和密码',
 				color: 'red',
-        icon:<Error/>
+				icon: <Error />,
 			});
 			return;
 		}
@@ -50,22 +50,22 @@ const Login: React.FC = () => {
 				showNotification({
 					title: '登录成功',
 					message: '',
-          color:"green",
-          icon:<Success/>
+					color: 'green',
+					icon: <Success />,
 				});
 			})
-			.catch((err: string) => {
+			.catch(() => {
 				showNotification({
 					title: '登录失败',
-          color:"red",
+					color: 'red',
 					message: '请检查账号密码',
-          icon:<Error/>
+					icon: <Error />,
 				});
 			})
 			.finally(() => {
 				setLoading(false);
 			});
-	};
+	}, [dispatch, loginForm]);
 
 	const handleLoginFormChange = (key: keyof typeof loginForm, val: string) => {
 		setLoginForm(
@@ -74,6 +74,19 @@ const Login: React.FC = () => {
 			})
 		);
 	};
+
+	useEffect(() => {
+		const loginEnter = (e: KeyboardEvent) => {
+			if (e.key !== 'Enter') {
+				return;
+			}
+			handleSubmit();
+		};
+		document.addEventListener('keydown', loginEnter);
+		return () => {
+			document.removeEventListener('keydown', loginEnter);
+		};
+	}, [handleSubmit]);
 
 	return !userInfo ? (
 		<motion.div
