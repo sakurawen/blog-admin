@@ -2,10 +2,7 @@ import { RouteObject } from 'react-router-dom';
 import MainLayout from '@/components/Layout/MainLayout';
 import LoginRouter from '@/components/auth/LoginRouter';
 // admin page
-import NewArticle from '@/page/main/NewArticle';
-import EditArticle from '@/page/main/EditArticle';
 import PostList from '@/page/main/Posts/list';
-import Posts from '@/page/main/Posts/post';
 import Login from '@/page/Login';
 import Nodes from '@/page/main/Nodes';
 import NotFound from '@/page/Result';
@@ -28,14 +25,6 @@ const routes: RouteObject[] = [
 				),
 			},
 			{
-				path: 'edit/:key',
-				element: (
-					<LoginRouter>
-						<EditArticle />
-					</LoginRouter>
-				),
-			},
-			{
 				path: 'posts/:node_key',
 				element: (
 					<LoginRouter>
@@ -51,11 +40,6 @@ const routes: RouteObject[] = [
 					</LoginRouter>
 				),
 			},
-			{
-				path: 'post/:key',
-				element: <Posts />,
-			},
-	
 		],
 	},
 

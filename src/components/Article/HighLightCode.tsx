@@ -1,12 +1,13 @@
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
-import light from "prism-react-renderer/themes/github"
+import light from 'prism-react-renderer/themes/github';
 
 interface CodeProps {
 	className: string;
 	children: string;
 }
 
-const Code = (props: unknown) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const Code = (props: any) => {
 	const className: string = (props as CodeProps).className;
 	if (!className) {
 		return (

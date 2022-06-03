@@ -18,7 +18,7 @@ function App() {
 	 */
 	useEffect(() => {
 		const token = localStorage.getItem('token');
-		if (!!token) {
+		if (token) {
 			userService
 				.validateJWT()
 				.then((res) => {

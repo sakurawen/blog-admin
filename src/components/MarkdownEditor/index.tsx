@@ -23,7 +23,7 @@ import { withHistory } from 'slate-history';
 import { withReact, Slate, Editable } from 'slate-react';
 import { utils, renderLeaf, markdownDecorate } from './utils';
 import dayjs from 'dayjs';
-import { createEditor, Descendant, Transforms, Node, Editor } from 'slate';
+import { createEditor, Descendant, Transforms, Node } from 'slate';
 import { SaveIcon } from '@heroicons/react/outline';
 import { Article } from '@/@types';
 import { produce } from 'immer';
@@ -83,7 +83,6 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 	const [saveTime, setSaveTime] = useState<Date>();
 
 	const editor = useMemo(() => withReact(withHistory(createEditor())), []);
-
 	const [editModal, setEditModal] = useState<Descendant[]>(
 		enableCache
 			? utils.deserializeEditContent(
@@ -437,9 +436,7 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 				</div>
 			)}
 			{isEditMode && (
-				<div
-					className='flex-1 pt-3 pb-8 relative box-border rounded overflow-scroll transition-colors '
-				>
+				<div className='flex-1 pt-3 pb-10 relative box-border rounded overflow-scroll transition-colors '>
 					<Slate
 						editor={editor}
 						onChange={(val) => handleEditContentChange(val)}
@@ -459,15 +456,15 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 						/>
 					</Slate>
 					{enableCache ? (
-						<span className='absolute bottom-1 left-0 text-gray-400 dark:text-gray-500 text-xs select-none bg-light-fading dark:bg-dark-fading/60 px-2.5 py-1 rounded'>
+						<span className='absolute bottom-1  left-0 text-gray-400 dark:text-gray-500 text-xs select-none bg-light-fading dark:bg-dark-fading/60 px-2.5 py-1 rounded'>
 							自动保存: {dayjs(saveTime).format('YYYY/MM/DD HH:mm:ss')}
 						</span>
 					) : (
-						<span className='absolute bottom-1 left-0 text-theme-light bg-theme-light/20 dark:text-theme-dark dark:bg-theme-dark/20 text-xs select-none px-2.5 py-1 rounded'>
+						<span className='absolute bottom-1 left-0   text-theme-light bg-theme-light/20 dark:text-theme-dark dark:bg-theme-dark/20 text-xs select-none px-2.5 py-1 rounded'>
 							编辑模式
 						</span>
 					)}
-					<span className='absolute bottom-1 right-0 text-gray-400 dark:text-gray-500 text-xs select-none bg-light-fading dark:bg-dark-fading/60 px-2.5 py-1 rounded'>
+					<span className='absolute bottom-1 right-0   text-gray-400 dark:text-gray-500 text-xs select-none bg-light-fading dark:bg-dark-fading/60 px-2.5 py-1 rounded'>
 						{editData.content.length}
 					</span>
 				</div>

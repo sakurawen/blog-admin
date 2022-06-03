@@ -25,7 +25,7 @@ root.render(
 			<NotificationsProvider
 				position='top-center'
 				zIndex={2077}
-				autoClose={5000}
+				autoClose={3000}
 			>
 				<Provider store={store}>
 					<App />

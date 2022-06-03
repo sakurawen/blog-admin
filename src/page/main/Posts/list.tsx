@@ -17,6 +17,8 @@ import axios from 'axios';
 import { useAppSelector } from '@/store';
 import IconButton from '@/components/IconButton';
 import NewArticle from '@/page/main/NewArticle';
+import EditArticle from '../EditArticle';
+import PreviewPosts from './post';
 
 type PostsListProsp = {
 	searchNodeKey?: boolean;
@@ -78,7 +80,9 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 			.then((res) => {
 				setArticlePage(res.data);
 			})
-			.catch(() => {});
+			.catch((err) => {
+				console.error(err);
+			});
 	}, [pageable, account]);
 
 	const getArticlePage = () => {
@@ -92,13 +96,16 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 		cancel.current = axios.CancelToken.source();
 	};
 
-	const handleNavToArticle = (e: React.MouseEvent, key: string) => {
+	const handlePreviewPosts = (e: React.MouseEvent, key: string) => {
 		e.stopPropagation();
-		navigate(`../post/${key}`);
+		setPreviewPostsKey(key);
+		setOpenPreview(true);
 	};
 
-	const handleEditArticle = (key: string) => {
-		navigate(`../edit/${key}`);
+	const [editPostsKey, setEditPostsKey] = useState('');
+	const handleEditPosts = (key: string) => {
+		setEditPostsKey(key);
+		setOpenEdit(true);
 	};
 
 	const [delOpen, setDelOpen] = useState(false);
@@ -183,11 +190,29 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 		}, 500);
 	};
 
+	// 控制新增模态框
 	const [openAdd, setOpenAdd] = useState(false);
+
+	// 控制编辑模态框
+	const [openEdit, setOpenEdit] = useState(false);
+
+	// 控制预览模态框
+	const [openPreview, setOpenPreview] = useState(false);
+
+	const handleCloseEditPostsModal = () => {
+		setOpenEdit(false);
+		setEditPostsKey('');
+	};
+
+	const [previewPostsKey, setPreviewPostsKey] = useState('');
+	const handleClosePreviewPostsModal = () => {
+		setOpenPreview(false);
+		setPreviewPostsKey('');
+	};
 
 	return (
 		<AnimatePresence>
-			{!!articlePage ? (
+			{articlePage ? (
 				<motion.div
 					initial={{
 						opacity: 0,
@@ -225,7 +250,7 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 								return (
 									<Row
 										onClick={() => {
-											handleEditArticle(item.article_key);
+											handleEditPosts(item.article_key);
 										}}
 										key={item.id}
 										className='flex group items-center justify-between'
@@ -237,7 +262,7 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 										</p>
 										<div className='space-x-1'>
 											<button
-												onClick={(e) => handleNavToArticle(e, item.article_key)}
+												onClick={(e) => handlePreviewPosts(e, item.article_key)}
 												className='py-0.5 px-2  transition-colors text-sm rounded text-gray-300 dark:text-dark-fading group-hover:text-gray-600 dark:group-hover:text-slate-200  hover:!text-theme-light dark:hover:!text-theme-dark'
 											>
 												查看
@@ -304,6 +329,31 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 					>
 						<ModalBody className='h-[94%]'>
 							<NewArticle />
+						</ModalBody>
+					</Modal>
+					{/* 编辑文章 */}
+					<Modal
+						loading={false}
+						open={openEdit}
+						title='编辑文章'
+						enableCloseButton
+						onClose={handleCloseEditPostsModal}
+						className='w-[98%] h-[96%] overflow-hidden pb-4'
+					>
+						<ModalBody className='h-[94%]'>
+							<EditArticle postsKey={editPostsKey} />
+						</ModalBody>
+					</Modal>
+					{/* 查看文章 */}
+					<Modal
+						title='文章预览'
+            className='w-[64rem] h-[96%] overflow-hidden pb-4'
+						open={openPreview}
+						enableCloseButton
+						onClose={handleClosePreviewPostsModal}
+					>
+						<ModalBody className='h-[94%]'>
+							<PreviewPosts postsKey={previewPostsKey} />
 						</ModalBody>
 					</Modal>
 				</motion.div>

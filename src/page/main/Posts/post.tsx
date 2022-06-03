@@ -1,15 +1,16 @@
 import React from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { postsService } from '@/api';
 import useSWR from 'swr';
 import ArticleContent from '@/components/Article/index';
 import dayjs from 'dayjs';
 import { AnimatePresence, motion } from 'framer-motion';
-import {Icon} from "@iconify/react"
+import { Icon } from '@iconify/react';
 import Toolbar from '@/components/Toolbar';
 
-const Article: React.FC = () => {
-	const { key } = useParams();
+const Article: React.FC<{
+	postsKey: string;
+}> = ({ postsKey: key }) => {
 	const { data: articleData, error } = useSWR(['/posts/get', key], (_, key) =>
 		postsService.get(key || '')
 	);
@@ -17,9 +18,9 @@ const Article: React.FC = () => {
 		return <Navigate to='/' />;
 	}
 	return (
-		<div className='pb-12 sm:mt-12 max-w-2xl mx-auto px-2'>
+		<div className='pb-12 h-full sm:mt-12 max-w-4xl mx-auto px-2 overflow-scroll'>
 			<AnimatePresence>
-				{!!articleData ? (
+				{articleData ? (
 					<motion.div
 						initial={{
 							opacity: 0,
@@ -44,7 +45,7 @@ const Article: React.FC = () => {
 					</motion.div>
 				) : (
 					<motion.div className='flex items-center min-h-[24rem] justify-center'>
-            <Icon  icon={"eos-icons:loading"} className="text-lg"/>
+						<Icon icon={'eos-icons:loading'} className='text-lg' />
 					</motion.div>
 				)}
 			</AnimatePresence>
@@ -52,5 +53,4 @@ const Article: React.FC = () => {
 		</div>
 	);
 };
-
 export default Article;

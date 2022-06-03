@@ -137,7 +137,7 @@ const NewArticle: React.FC = () => {
 				onClose={handleCloseAddMocal}
 			>
 				<ModalBody>
-					<h1>发布节点</h1>
+					<h2 className='mb-2'>发布节点</h2>
 					<Select
 						placeholder='选择发布节点'
 						options={nodeOptions ?? []}

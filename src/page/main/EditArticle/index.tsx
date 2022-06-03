@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import MarkdownEditor from '@/components/MarkdownEditor';
-import { useParams } from 'react-router-dom';
 import { nodeService, postsService } from '@/api';
 import { Article } from '@/@types';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -14,14 +13,16 @@ import { showNotification } from '@mantine/notifications';
 import Success from '@/components/Icon/Success';
 import Error from '@/components/Icon/Error';
 
+type EditArticleProps = {
+	postsKey: string;
+};
 /**
  * 文章编辑
  * @returns
  */
-const EditArticle: React.FC = () => {
+const EditArticle: React.FC<EditArticleProps> = ({ postsKey: key }) => {
 	const navigate = useNavigate();
 	const userInfo = useAppSelector((state) => state.user.info);
-	const { key } = useParams();
 	const [editArticle, setEditArticle] = useState<Article>();
 	const [init, setInit] = useState(false);
 	useEffect(() => {
@@ -123,6 +124,7 @@ const EditArticle: React.FC = () => {
 					icon: <Error />,
 					color: 'red',
 				});
+				console.error(err);
 			})
 			.finally(() => {
 				setLoading(false);
@@ -130,32 +132,30 @@ const EditArticle: React.FC = () => {
 	};
 
 	return (
-		<div>
-			<AnimatePresence>
-				{init && (
-					<motion.div
-						initial={{
-							opacity: 0,
-							translateX: 10,
-						}}
-						animate={{
-							opacity: 1,
-							translateX: 0,
-						}}
-						exit={{
-							opacity: 0,
-							translateX: 10,
-						}}
-					>
-						<MarkdownEditor
-							className='h-edit-editor'
-							editArticle={editArticle}
-							onPost={handleShowSelectNodeModal}
-							enableCache={false}
-						/>
-					</motion.div>
-				)}
-			</AnimatePresence>
+		<div className='h-full'>
+			{init && (
+				<motion.div
+					className='h-full'
+					initial={{
+						opacity: 0,
+						translateX: 10,
+					}}
+					animate={{
+						opacity: 1,
+						translateX: 0,
+					}}
+					exit={{
+						opacity: 0,
+						translateX: 10,
+					}}
+				>
+					<MarkdownEditor
+						editArticle={editArticle}
+						onPost={handleShowSelectNodeModal}
+						enableCache={false}
+					/>
+				</motion.div>
+			)}
 			<Modal
 				loading={loading}
 				title='保存文章'
