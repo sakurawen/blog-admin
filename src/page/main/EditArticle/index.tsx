@@ -12,16 +12,20 @@ import { useAppSelector } from '@/store';
 import { showNotification } from '@mantine/notifications';
 import Success from '@/components/Icon/Success';
 import Error from '@/components/Icon/Error';
+import { flushSync } from 'react-dom';
 
 type EditArticleProps = {
 	postsKey: string;
+	onSaveAfter: () => void;
 };
 /**
  * 文章编辑
  * @returns
  */
-const EditArticle: React.FC<EditArticleProps> = ({ postsKey: key }) => {
-	const navigate = useNavigate();
+const EditArticle: React.FC<EditArticleProps> = ({
+	postsKey: key,
+	onSaveAfter,
+}) => {
 	const userInfo = useAppSelector((state) => state.user.info);
 	const [editArticle, setEditArticle] = useState<Article>();
 	const [init, setInit] = useState(false);
@@ -110,13 +114,16 @@ const EditArticle: React.FC<EditArticleProps> = ({ postsKey: key }) => {
 				key: key || '',
 				node_key: articleNode?.value,
 			})
-			.then((res) => {
+			.then(() => {
 				showNotification({
 					message: '保存成功',
 					color: 'green',
 					icon: <Success />,
 				});
-				navigate(`../post/${res.data.article_key}`);
+        flushSync(()=>{
+          handleCloseSelectNodeModal()
+          onSaveAfter();
+        })
 			})
 			.catch((err) => {
 				showNotification({
@@ -164,7 +171,7 @@ const EditArticle: React.FC<EditArticleProps> = ({ postsKey: key }) => {
 				onClose={handleCloseSelectNodeModal}
 			>
 				<ModalBody>
-					<h1>发布节点</h1>
+					<h2 className='mb-2'>发布节点</h2>
 					<Select
 						placeholder='选择发布节点'
 						options={nodeOptions ?? []}

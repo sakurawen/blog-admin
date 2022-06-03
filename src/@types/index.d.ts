@@ -65,6 +65,7 @@ export type ArticleSaveResp = {
 	title: string;
 	content: string;
 	article_key: string;
+  node_key:string
 	tag: string;
 	create_time: Date;
 };

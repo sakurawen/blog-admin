@@ -29,7 +29,6 @@ type PostsListProsp = {
  */
 const PostsList: React.FC<PostsListProsp> = (props) => {
 	const account = useAppSelector((state) => state.user.info?.account) || '';
-	const navigate = useNavigate();
 	const cancel = useRef(axios.CancelToken.source());
 	const { searchNodeKey } = props;
 	const { node_key } = useParams();
@@ -199,9 +198,16 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 	// 控制预览模态框
 	const [openPreview, setOpenPreview] = useState(false);
 
+
+  const handleCloseAddPostsModal = ()=>{
+    setOpenAdd(false)
+    getArticlePage()
+
+  }
 	const handleCloseEditPostsModal = () => {
 		setOpenEdit(false);
 		setEditPostsKey('');
+    getArticlePage()
 	};
 
 	const [previewPostsKey, setPreviewPostsKey] = useState('');
@@ -328,7 +334,7 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 						className='w-[98%] h-[96%] overflow-hidden pb-4'
 					>
 						<ModalBody className='h-[94%]'>
-							<NewArticle />
+							<NewArticle onSaveAfter={handleCloseAddPostsModal} />
 						</ModalBody>
 					</Modal>
 					{/* 编辑文章 */}
@@ -341,13 +347,16 @@ const PostsList: React.FC<PostsListProsp> = (props) => {
 						className='w-[98%] h-[96%] overflow-hidden pb-4'
 					>
 						<ModalBody className='h-[94%]'>
-							<EditArticle postsKey={editPostsKey} />
+							<EditArticle
+								onSaveAfter={handleCloseEditPostsModal}
+								postsKey={editPostsKey}
+							/>
 						</ModalBody>
 					</Modal>
 					{/* 查看文章 */}
 					<Modal
 						title='文章预览'
-            className='w-[64rem] h-[96%] overflow-hidden pb-4'
+						className='w-[64rem] h-[96%] overflow-hidden pb-4'
 						open={openPreview}
 						enableCloseButton
 						onClose={handleClosePreviewPostsModal}

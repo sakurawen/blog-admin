@@ -19,8 +19,8 @@ type DialogProps = {
  * @returns
  */
 export const Modal: React.FC<DialogProps> = (props) => {
-	const {
-		open,
+  const {
+    open,
 		onClose,
 		maskClose,
 		children,

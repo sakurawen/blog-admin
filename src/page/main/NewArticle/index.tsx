@@ -1,4 +1,5 @@
 import React, { useRef, useState, useMemo } from 'react';
+import { flushSync } from 'react-dom';
 import MarkdownEditor, { EditorRef } from '@/components/MarkdownEditor';
 import { useNavigate } from 'react-router-dom';
 import { nodeService, postsService } from '@/api';
@@ -16,7 +17,7 @@ import Success from '@/components/Icon/Success';
  * 编辑页面
  * @returns
  */
-const NewArticle: React.FC = () => {
+const NewArticle: React.FC<{ onSaveAfter: () => void }> = ({ onSaveAfter }) => {
 	const [loading, setLoading] = useState(false);
 	const userInfo = useAppSelector((state) => state.user.info);
 	const { data: nodes } = useSWR(
@@ -38,8 +39,6 @@ const NewArticle: React.FC = () => {
 		value: any;
 	}>();
 
-	const navigate = useNavigate();
-	const jumpKey = useRef('');
 	const handleArticleSave = () => {
 		const { title, content } = editData.current;
 		if (content.trim().length === 0 || title.trim().length === 0) {
@@ -53,18 +52,17 @@ const NewArticle: React.FC = () => {
 		}
 		postsService
 			.save({ title, content, node_key: articleNode?.value || '' })
-			.then((res) => {
-				editor.current?.reset().then(() => {
-					jumpKey.current = res.data.article_key;
-					showNotification({
-						message: '保存成功',
-						color: 'green',
-						icon: <Success />,
-					});
-					setLoading(false);
-					if (jumpKey.current.length !== 0) {
-						navigate(`../post/${jumpKey.current}`);
-					}
+			.then(() => {
+        showNotification({
+          message: '保存成功',
+					color: 'green',
+					icon: <Success />,
+				});
+				flushSync(() => {
+          setLoading(false);
+          editor.current?.reset();
+					handleCloseAddMocal();
+					onSaveAfter();
 				});
 			})
 			.catch((err) => {

@@ -79,7 +79,6 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 		};
 	});
 
-	const autoSaveTimer = useRef<NodeJS.Timeout>();
 	const [saveTime, setSaveTime] = useState<Date>();
 
 	const editor = useMemo(() => withReact(withHistory(createEditor())), []);
@@ -213,14 +212,14 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 	 * 本地保存输入内容
 	 */
 	useEffect(() => {
-		clearTimeout(autoSaveTimer.current as NodeJS.Timeout);
-		autoSaveTimer.current = setTimeout(() => {
+		startTransition(() => {
 			setSaveTime(new Date());
 			if (enableCache) {
+        console.log(editData.content,editData.title)
 				localStorage.setItem('cache_content', editData.content || '');
 				localStorage.setItem('cache_title', editData.title || '');
 			}
-		}, 1000);
+		});
 	}, [editData.content, editData.title, enableCache]);
 
 	/**
@@ -297,11 +296,13 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 	};
 
 	const handleChangeTitle = (title: string) => {
-		setEditData(
-			produce(editData, (d) => {
-				d.title = title;
-			})
-		);
+		startTransition(() => {
+			setEditData(
+				produce(editData, (d) => {
+					d.title = title;
+				})
+			);
+		});
 	};
 
 	const [openMediaModal, setOpenMediaModal] = useState(false);
