@@ -4,10 +4,8 @@
     "port": 5000,
     "proxy": {}
   },
-  "featrue": {
-    "mdx": true,
-    "cssModule": false,
-    "scss": false
+  "alias": {
+    "@": "src"
   },
   "plugins": {
     "bundleAnalyzer": false
