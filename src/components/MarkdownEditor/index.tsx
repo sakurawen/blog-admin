@@ -215,7 +215,6 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 		startTransition(() => {
 			setSaveTime(new Date());
 			if (enableCache) {
-        console.log(editData.content,editData.title)
 				localStorage.setItem('cache_content', editData.content || '');
 				localStorage.setItem('cache_title', editData.title || '');
 			}
@@ -296,13 +295,11 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 	};
 
 	const handleChangeTitle = (title: string) => {
-		startTransition(() => {
-			setEditData(
-				produce(editData, (d) => {
-					d.title = title;
-				})
-			);
-		});
+		setEditData(
+			produce(editData, (d) => {
+				d.title = title;
+			})
+		);
 	};
 
 	const [openMediaModal, setOpenMediaModal] = useState(false);
