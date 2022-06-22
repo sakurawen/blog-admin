@@ -1,7 +1,6 @@
 import React, { useRef, useState, useMemo } from 'react';
 import { flushSync } from 'react-dom';
 import MarkdownEditor, { EditorRef } from '@/components/MarkdownEditor';
-import { useNavigate } from 'react-router-dom';
 import { nodeService, postsService } from '@/api';
 import { motion } from 'framer-motion';
 import { Modal, ModalBody, ModalFooter } from '@/components/Modal';

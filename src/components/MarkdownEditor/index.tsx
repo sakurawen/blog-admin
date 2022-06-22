@@ -32,6 +32,9 @@ import IconButton from '@/components/IconButton';
 import Input from '@/components/Input';
 import { Modal, ModalBody, ModalFooter } from '@/components/Modal';
 import { renderElement } from './utils';
+import { showNotification } from '@mantine/notifications';
+import Error from '@/components/Icon/Error';
+import Success from '@/components/Icon/Success';
 
 export type EditorRef = {
 	reset: () => Promise<any>;
@@ -246,12 +249,12 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 
 		const file = files[0];
 		if (file.size > 1024 * 1024 * 2) {
-			// toast({
-			// 	title: '错误',
-			// 	description: '请上传文件大小2M以内的图片',
-			// 	position: 'top',
-			// 	duration: 2000,
-			// });
+			showNotification({
+				title: '插入图片失败',
+				message: '请上传文件大小2M以内的图片',
+				color: 'red',
+				icon: <Error />,
+			});
 			uploadInput.current.value = '';
 			return;
 		}
@@ -273,11 +276,11 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 					});
 			})
 			.catch(() => {
-				// toast({
-				// 	title: '系统繁忙',
-				// 	status: 'error',
-				// 	position: 'top',
-				// });
+				showNotification({
+					message: '系统繁忙',
+					color: 'red',
+					icon: <Error />,
+				});
 			});
 	};
 	/**
@@ -318,17 +321,18 @@ const MarkdownEditor = forwardRef((props: EditorProps, ref) => {
 			const comp = utils.getMediaComponentStr(mediaUrl);
 			Transforms.insertText(editor, comp || '');
 			handleCloseMediaModal();
-			// toast({
-			// 	position: 'top',
-			// 	title: '插入媒体成功',
-			// 	duration: 1500,
-			// });
+
+			showNotification({
+				message: '插入媒体成功',
+				color: 'green',
+				icon: <Success />,
+			});
 		} catch (err) {
-			// toast({
-			// 	position: 'top',
-			// 	title:(err as Error).message,
-			// 	duration: 1500,
-			// });
+			showNotification({
+				message: (err as Error).message,
+				color: 'red',
+				icon: <Error />,
+			});
 			console.log(err);
 		}
 	};
